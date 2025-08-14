@@ -6,10 +6,6 @@
     <title>Consentimiento Informado - Final</title>
     <!-- Incluimos Tailwind CSS para un diseño limpio y responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Incluimos html2canvas para capturar el contenido del formulario -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Incluimos jsPDF para generar el documento PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- Usamos una fuente moderna para mejorar la legibilidad -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -34,7 +30,6 @@
 
         <!-- Formulario en sí -->
         <form id="consentimientoForm" class="space-y-8">
-
             <!-- Sección de Datos personales -->
             <section class="border-b pb-8 border-gray-200">
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">Datos personales</h2>
@@ -114,7 +109,7 @@
             <div class="flex justify-end">
                 <button type="submit" id="submit-button"
                         class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                    Generar PDF y firmar
+                    Enviar Consentimiento
                 </button>
             </div>
         </form>
@@ -134,7 +129,7 @@
             // Muestra un mensaje de carga
             const messageContainer = document.getElementById('message-container');
             const messageBox = document.getElementById('message-box');
-            messageBox.innerHTML = '<p class="text-blue-800 font-medium">Generando PDF para su firma...</p>';
+            messageBox.innerHTML = '<p class="text-blue-800 font-medium">Procesando su consentimiento...</p>';
             messageBox.classList.add('bg-blue-100');
             messageBox.classList.remove('hidden');
             messageContainer.classList.remove('hidden');
@@ -142,44 +137,40 @@
             const submitButton = document.getElementById('submit-button');
             submitButton.disabled = true;
 
-            // Espera un breve momento para que el mensaje de carga sea visible
-            await new Promise(resolve => setTimeout(resolve, 500));
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
 
-            // html2canvas captura el contenido del contenedor del formulario
-            const formContainer = document.getElementById('form-container');
-            html2canvas(formContainer, {
-                scale: 2 // Escala para mejor resolución del PDF
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
+            try {
+                const response = await fetch('/submit-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
                 
-                // Crea un nuevo documento PDF con jsPDF
-                const doc = new jsPDF('p', 'mm', 'a4'); // 'p' (portrait), 'mm' (unidades), 'a4' (tamaño)
-                
-                // Calcula las dimensiones para que la imagen ocupe toda la página
-                const imgWidth = 210; 
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-                
-                doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                
-                // Guarda el PDF, lo que activa la descarga en el navegador
-                doc.save('consentimiento_informado.pdf');
+                const result = await response.json();
 
-                // Muestra un mensaje de éxito
-                messageBox.innerHTML = `<p class="text-green-800 font-medium">¡Gracias! El PDF ha sido generado y descargado.</p>`;
-                messageBox.classList.remove('bg-blue-100');
-                messageBox.classList.add('bg-green-100');
-                submitButton.disabled = false;
-            }).catch(error => {
-                // Manejo de errores
-                messageBox.innerHTML = '<p class="text-red-800 font-medium">Ocurrió un error al generar el PDF. Por favor, inténtelo de nuevo.</p>';
+                if (response.ok) {
+                    messageBox.innerHTML = `<p class="text-green-800 font-medium">${result.message}</p>`;
+                    messageBox.classList.remove('bg-blue-100');
+                    messageBox.classList.add('bg-green-100');
+                    // Opcional: limpiar el formulario después de un envío exitoso
+                    // event.target.reset();
+                } else {
+                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Error: ${result.error || 'No se pudo enviar el formulario.'}</p>`;
+                    messageBox.classList.remove('bg-blue-100');
+                    messageBox.classList.add('bg-red-100');
+                }
+            } catch (error) {
+                messageBox.innerHTML = '<p class="text-red-800 font-medium">Ocurrió un error de conexión. Por favor, inténtelo de nuevo.</p>';
                 messageBox.classList.remove('bg-blue-100');
                 messageBox.classList.add('bg-red-100');
-                console.error('Error al generar el PDF:', error);
+                console.error('Error:', error);
+            } finally {
                 submitButton.disabled = false;
-            });
+            }
         });
     </script>
 </body>
 </html>
-
