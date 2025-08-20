@@ -120,12 +120,6 @@
                         <input type="date" id="fecha" name="fecha" required
                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
-                    <!-- Campo Hora -->
-                    <div>
-                        <label for="hora" class="block text-sm font-medium text-gray-700">Hora</label>
-                        <input type="time" id="hora" name="hora" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
-                    </div>
                 </div>
             </section>
 
@@ -168,7 +162,6 @@
                 dni: document.getElementById('dni').value,
                 lugar: document.getElementById('lugar').value,
                 fecha: document.getElementById('fecha').value,
-                hora: document.getElementById('hora').value,
             };
 
             try {
@@ -185,11 +178,14 @@
                     messageBox.classList.remove('bg-blue-100', 'bg-red-100');
                     messageBox.classList.add('bg-green-100');
                 } else {
-                    throw new Error(`Error en el servidor: ${response.status}`);
+                    const errorText = await response.text();
+                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${response.status}. Respuesta: ${errorText}.</p>`;
+                    messageBox.classList.remove('bg-blue-100', 'bg-green-100');
+                    messageBox.classList.add('bg-red-100');
                 }
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
-                messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Por favor, inténtelo de nuevo.</p>`;
+                messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Esto puede deberse a un problema de CORS o a que el servidor no está en funcionamiento.</p>`;
                 messageBox.classList.remove('bg-blue-100', 'bg-green-100');
                 messageBox.classList.add('bg-red-100');
             } finally {
