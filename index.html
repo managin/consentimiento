@@ -6,7 +6,7 @@
     <title>Consentimiento Informado</title>
     <!-- Incluimos Tailwind CSS para un diseño limpio y responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Usamos una fuente moderna para mejorar la legibilidad -->
+    <!-- Incluimos una fuente moderna para mejorar la legibilidad -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
         body {
@@ -33,7 +33,7 @@
 
             <!-- Sección 1: Datos personales -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Nombre, apellido y DNI</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Nombre, apellido, DNI y Datos del Consentimiento</h2>
                 <div class="space-y-4">
                     <!-- Campo Nombre y apellido -->
                     <div>
@@ -45,6 +45,18 @@
                     <div>
                         <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
                         <input type="text" id="dni" name="dni" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <!-- Campo Lugar -->
+                    <div>
+                        <label for="lugar" class="block text-sm font-medium text-gray-700">Lugar</label>
+                        <input type="text" id="lugar" name="lugar" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <!-- Campo Fecha -->
+                    <div>
+                        <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required
                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                 </div>
@@ -99,26 +111,7 @@
                            class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                 </div>
             </section>
-
-            <!-- Campos de lugar, fecha y correo del destinatario -->
-            <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Datos del Consentimiento</h2>
-                <div class="space-y-4">
-                    <!-- Campo Lugar -->
-                    <div>
-                        <label for="lugar" class="block text-sm font-medium text-gray-700">Lugar</label>
-                        <input type="text" id="lugar" name="lugar" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
-                    </div>
-                    <!-- Campo Fecha -->
-                    <div>
-                        <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
-                        <input type="date" id="fecha" name="fecha" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
-                    </div>
-                </div>
-            </section>
-
+            
             <!-- Botón de envío -->
             <div class="flex justify-end">
                 <button type="submit" id="submit-button"
@@ -154,6 +147,22 @@
             // URL de tu servidor Flask
             const flaskUrl = 'https://ruproser.ddns.net/submit-form';
             
+            // --- NUEVO PASO: Rellenar los campos del formulario con los valores antes de capturar el HTML ---
+            const formInputs = document.querySelectorAll('#consentimientoForm input, #consentimientoForm textarea');
+            formInputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    if (input.checked) {
+                        const label = document.querySelector(`label[for="${input.id}"]`);
+                        if (label) {
+                            label.innerHTML += ' ✓'; // Agrega un tilde/check al lado del texto
+                        }
+                    }
+                } else if (input.type === 'date' || input.type === 'text' || input.type === 'email') {
+                    input.setAttribute('value', input.value);
+                    input.setAttribute('disabled', 'true'); // Deshabilita los campos para que no se puedan editar visualmente
+                }
+            });
+
             // Recopila los datos del formulario, incluyendo el HTML completo del formulario
             const formContainer = document.getElementById('form-container');
             const formHtml = formContainer.outerHTML;
