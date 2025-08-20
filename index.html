@@ -13,6 +13,35 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
+
+        /* Estilo para el tilde que se mostrará en el PDF */
+        .checkbox-container-pdf {
+            position: relative;
+            display: inline-block;
+            width: 16px; /* Ancho del recuadro del checkbox */
+            height: 16px; /* Altura del recuadro del checkbox */
+            border: 1px solid #d1d5db;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+        
+        /* Estilo para el tilde dentro del recuadro */
+        .checkbox-container-pdf::after {
+            content: '✓'; /* Carácter del tilde */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: #1e40af; /* Color del tilde */
+            display: none;
+        }
+
+        /* Clase para mostrar el tilde */
+        .checkbox-container-pdf.checked::after {
+            display: block;
+        }
+
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -107,6 +136,9 @@
             <section class="border-b pb-8 border-gray-200">
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para el tratamiento</h2>
                 <div class="flex items-start">
+                    <!-- Contenedor visible para el tilde en el PDF -->
+                    <div id="pdf-checkbox" class="checkbox-container-pdf hidden"></div>
+                    <!-- Casilla de verificación real, oculta para el PDF -->
                     <input id="consentimientoFinal" type="checkbox" name="consentimientoFinal" required
                            class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                 </div>
@@ -147,23 +179,27 @@
             // URL de tu servidor Flask
             const flaskUrl = 'https://ruproser.ddns.net/submit-form';
             
-            // --- NUEVO PASO: Rellenar los campos del formulario con los valores antes de capturar el HTML ---
-            const formInputs = document.querySelectorAll('#consentimientoForm input, #consentimientoForm textarea');
+            // Lógica para preparar el HTML para el PDF
+            const formInputs = document.querySelectorAll('#consentimientoForm input');
             formInputs.forEach(input => {
                 if (input.type === 'checkbox') {
                     if (input.checked) {
-                        const label = document.querySelector(`label[for="${input.id}"]`);
-                        if (label) {
-                            label.innerHTML += ' ✓'; // Agrega un tilde/check al lado del texto
-                        }
+                        // Oculta el checkbox original y muestra el contenedor con el tilde para el PDF
+                        const pdfCheckboxContainer = document.getElementById('pdf-checkbox');
+                        pdfCheckboxContainer.classList.remove('hidden');
+                        pdfCheckboxContainer.classList.add('checked');
+                        input.classList.add('hidden'); // Oculta el checkbox original en el HTML a ser enviado
                     }
-                } else if (input.type === 'date' || input.type === 'text' || input.type === 'email') {
+                } else {
                     input.setAttribute('value', input.value);
-                    input.setAttribute('disabled', 'true'); // Deshabilita los campos para que no se puedan editar visualmente
+                    input.setAttribute('disabled', 'true'); // Deshabilita los campos para que no se puedan editar
                 }
             });
 
-            // Recopila los datos del formulario, incluyendo el HTML completo del formulario
+            // Oculta el botón de envío y los mensajes en el HTML que se enviará al PDF
+            submitButton.style.display = 'none';
+            messageContainer.style.display = 'none';
+
             const formContainer = document.getElementById('form-container');
             const formHtml = formContainer.outerHTML;
 
@@ -201,6 +237,16 @@
                 messageBox.classList.add('bg-red-100');
             } finally {
                 submitButton.disabled = false;
+                // Reestablece los elementos para la interfaz de usuario después del envío
+                submitButton.style.display = 'block';
+                messageContainer.style.display = 'block';
+                const pdfCheckboxContainer = document.getElementById('pdf-checkbox');
+                const originalCheckbox = document.getElementById('consentimientoFinal');
+                if (originalCheckbox.checked) {
+                    pdfCheckboxContainer.classList.add('hidden');
+                    pdfCheckboxContainer.classList.remove('checked');
+                    originalCheckbox.classList.remove('hidden');
+                }
             }
         });
     </script>
