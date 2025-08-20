@@ -14,35 +14,35 @@
             background-color: #f3f4f6;
         }
 
-        /* Estilo para el tilde que se mostrará en el PDF */
-        .pdf-checkbox-checked {
-            display: inline-block;
-            width: 1rem;
-            height: 1rem;
-            border: 1px solid #3b82f6; /* Borde azul para que sea visible */
-            background-color: #3b82f6; /* Fondo azul */
-            border-radius: 0.25rem;
-            position: relative;
-        }
-
-        .pdf-checkbox-checked::after {
-            content: '✓';
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-        
-        .pdf-checkbox-unchecked {
-            display: inline-block;
-            width: 1rem;
-            height: 1rem;
+        /* Estilo para la casilla de verificación simulada */
+        .custom-checkbox {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.25rem;
+            height: 1.25rem;
             border: 1px solid #d1d5db;
             background-color: #fff;
             border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            user-select: none;
+        }
+        
+        .custom-checkbox.checked {
+            border-color: #3b82f6;
+            background-color: #3b82f6;
+        }
+
+        .custom-checkbox .checkmark {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            display: none;
+        }
+
+        .custom-checkbox.checked .checkmark {
+            display: block;
         }
 
     </style>
@@ -135,14 +135,13 @@
                 </ul>
             </section>
             
-            <!-- Sección final con la casilla de verificación -->
+            <!-- Sección final con la casilla de verificación simulada -->
             <section class="border-b pb-8 border-gray-200">
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para el tratamiento</h2>
-                <div class="flex items-start">
-                    <!-- Casilla de verificación real, que el usuario tilda en la web -->
-                    <input id="consentimientoFinal" type="checkbox" name="consentimientoFinal" required
-                           class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                    <span id="pdf-checkbox-placeholder" class="hidden"></span>
+                <div class="flex items-center">
+                    <div id="consentimientoCheckbox" class="custom-checkbox">
+                        <span class="checkmark">✓</span>
+                    </div>
                 </div>
             </section>
             
@@ -164,89 +163,100 @@
 
     <!-- Script para manejar la lógica del formulario -->
     <script>
-        document.getElementById('consentimientoForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Previene el envío del formulario por defecto
-            
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('consentimientoForm');
             const submitButton = document.getElementById('submit-button');
             const messageContainer = document.getElementById('message-container');
             const messageBox = document.getElementById('message-box');
-            const originalCheckbox = document.getElementById('consentimientoFinal');
-            const pdfCheckboxPlaceholder = document.getElementById('pdf-checkbox-placeholder');
+            const customCheckbox = document.getElementById('consentimientoCheckbox');
 
-            // Muestra un mensaje de carga
-            messageBox.innerHTML = '<p class="text-blue-800 font-medium">Enviando formulario...</p>';
-            messageBox.classList.remove('bg-green-100', 'bg-red-100');
-            messageBox.classList.add('bg-blue-100');
-            messageContainer.classList.remove('hidden');
-            submitButton.disabled = true;
+            let isChecked = false;
 
-            // URL de tu servidor Flask
-            const flaskUrl = 'https://ruproser.ddns.net/submit-form';
-            
-            // Lógica para preparar el HTML para el PDF
-            const formInputs = document.querySelectorAll('#consentimientoForm input');
-            formInputs.forEach(input => {
-                if (input.type === 'checkbox') {
-                    // Si el checkbox está marcado, reemplazamos el original con el HTML que se renderizará en el PDF
-                    if (input.checked) {
-                        pdfCheckboxPlaceholder.innerHTML = '<span class="pdf-checkbox-checked"></span>';
-                    } else {
-                        pdfCheckboxPlaceholder.innerHTML = '<span class="pdf-checkbox-unchecked"></span>';
-                    }
-                    input.style.display = 'none'; // Ocultamos el checkbox original
+            // Maneja el clic en la casilla de verificación simulada
+            customCheckbox.addEventListener('click', () => {
+                isChecked = !isChecked;
+                if (isChecked) {
+                    customCheckbox.classList.add('checked');
                 } else {
-                    input.setAttribute('value', input.value);
-                    input.setAttribute('disabled', 'true'); // Deshabilita los campos para que no se puedan editar
+                    customCheckbox.classList.remove('checked');
                 }
             });
 
-            // Oculta el botón de envío y los mensajes en el HTML que se enviará al PDF
-            submitButton.style.display = 'none';
-            messageContainer.style.display = 'none';
-
-            const formContainer = document.getElementById('form-container');
-            const formHtml = formContainer.outerHTML;
-
-            const formData = {
-                nombre: document.getElementById('nombre').value,
-                dni: document.getElementById('dni').value,
-                lugar: document.getElementById('lugar').value,
-                fecha: document.getElementById('fecha').value,
-                form_html: formHtml
-            };
-
-            try {
-                const response = await fetch(flaskUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-                if (response.ok) {
-                    messageBox.innerHTML = `<p class="text-green-800 font-medium">¡Gracias! El formulario ha sido enviado con éxito.</p>`;
-                    messageBox.classList.remove('bg-blue-100', 'bg-red-100');
-                    messageBox.classList.add('bg-green-100');
-                } else {
-                    const errorText = await response.text();
-                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${response.status}. Respuesta: ${errorText}.</p>`;
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault(); // Previene el envío del formulario por defecto
+                
+                // Validación para la casilla de verificación
+                if (!isChecked) {
+                    messageBox.innerHTML = '<p class="text-red-800 font-medium">Por favor, marca la casilla de consentimiento para continuar.</p>';
                     messageBox.classList.remove('bg-blue-100', 'bg-green-100');
                     messageBox.classList.add('bg-red-100');
+                    messageContainer.classList.remove('hidden');
+                    return;
                 }
-            } catch (error) {
-                console.error('Error al enviar el formulario:', error);
-                messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Esto puede deberse a un problema de CORS o a que el servidor no está en funcionamiento.</p>`;
-                messageBox.classList.remove('bg-blue-100', 'bg-green-100');
-                messageBox.classList.add('bg-red-100');
-            } finally {
-                submitButton.disabled = false;
-                // Reestablece los elementos para la interfaz de usuario después del envío
-                submitButton.style.display = 'block';
-                messageContainer.style.display = 'block';
-                originalCheckbox.style.display = 'block';
-                pdfCheckboxPlaceholder.innerHTML = '';
-            }
+
+                // Muestra un mensaje de carga
+                messageBox.innerHTML = '<p class="text-blue-800 font-medium">Enviando formulario...</p>';
+                messageBox.classList.remove('bg-green-100', 'bg-red-100');
+                messageBox.classList.add('bg-blue-100');
+                messageContainer.classList.remove('hidden');
+                submitButton.disabled = true;
+
+                // URL de tu servidor Flask
+                const flaskUrl = 'https://ruproser.ddns.net/submit-form';
+                
+                // Lógica para preparar el HTML para el PDF
+                const formInputs = document.querySelectorAll('#consentimientoForm input');
+                formInputs.forEach(input => {
+                    input.setAttribute('value', input.value);
+                    input.setAttribute('disabled', 'true');
+                });
+
+                // Oculta el botón de envío y los mensajes en el HTML que se enviará al PDF
+                submitButton.style.display = 'none';
+                messageContainer.style.display = 'none';
+
+                const formContainer = document.getElementById('form-container');
+                const formHtml = formContainer.outerHTML;
+
+                const formData = {
+                    nombre: document.getElementById('nombre').value,
+                    dni: document.getElementById('dni').value,
+                    lugar: document.getElementById('lugar').value,
+                    fecha: document.getElementById('fecha').value,
+                    form_html: formHtml
+                };
+
+                try {
+                    const response = await fetch(flaskUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    if (response.ok) {
+                        messageBox.innerHTML = `<p class="text-green-800 font-medium">¡Gracias! El formulario ha sido enviado con éxito.</p>`;
+                        messageBox.classList.remove('bg-blue-100', 'bg-red-100');
+                        messageBox.classList.add('bg-green-100');
+                    } else {
+                        const errorText = await response.text();
+                        messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${response.status}. Respuesta: ${errorText}.</p>`;
+                        messageBox.classList.remove('bg-blue-100', 'bg-green-100');
+                        messageBox.classList.add('bg-red-100');
+                    }
+                } catch (error) {
+                    console.error('Error al enviar el formulario:', error);
+                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Esto puede deberse a un problema de CORS o a que el servidor no está en funcionamiento.</p>`;
+                    messageBox.classList.remove('bg-blue-100', 'bg-green-100');
+                    messageBox.classList.add('bg-red-100');
+                } finally {
+                    submitButton.disabled = false;
+                    // Reestablece los elementos para la interfaz de usuario después del envío
+                    submitButton.style.display = 'block';
+                    messageContainer.style.display = 'block';
+                }
+            });
         });
     </script>
 </body>
