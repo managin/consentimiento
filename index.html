@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consentimiento Informado - Final</title>
+    <title>Formulario de Consentimiento</title>
     <!-- Incluimos Tailwind CSS para un diseño limpio y responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluimos html2canvas para capturar el contenido del formulario -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Incluimos jsPDF para generar el documento PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- Usamos una fuente moderna para mejorar la legibilidad -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -24,19 +28,20 @@
         <header class="mb-8 text-center">
             <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">CONSENTIMIENTO INFORMADO</h1>
             <p class="mt-4 text-gray-600 leading-relaxed">
-                El Consentimiento Informado es la declaración de voluntad efectuada por el paciente, emitida luego de recibir información clara, precisa y adecuada inherente a procedimientos y tratamientos propuestos, con respecto a objetivos y beneficios. Su firma en el presente documento es la constancia de que entendió todo lo explicado y da conformidad acerca del mismo.
+                Este formulario tiene como objetivo registrar su consentimiento informado para el tratamiento ayurvédico. Por favor, lea atentamente la información provista y marque los ítems correspondientes antes de enviar. El consentimiento se considera válido al completar todos los campos obligatorios y hacer clic en “Enviar”.
             </p>
         </header>
 
         <!-- Formulario en sí -->
         <form id="consentimientoForm" class="space-y-8">
-            <!-- Sección de Datos personales -->
+
+            <!-- Sección 1: Datos personales -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Datos personales</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Sección 1: Datos personales</h2>
                 <div class="space-y-4">
-                    <!-- Campo Nombre y Apellido -->
+                    <!-- Campo Nombre y apellido -->
                     <div>
-                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y Apellido</label>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y apellido</label>
                         <input type="text" id="nombre" name="nombre" required
                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
@@ -44,6 +49,12 @@
                     <div>
                         <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
                         <input type="text" id="dni" name="dni" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <!-- Campo Correo electrónico -->
+                    <div>
+                        <label for="correo" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                        <input type="email" id="correo" name="correo" required
                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                     <!-- Campo Lugar -->
@@ -58,55 +69,137 @@
                         <input type="date" id="fecha" name="fecha" required
                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
+                    <!-- Campo Hora -->
+                    <div>
+                        <label for="hora" class="block text-sm font-medium text-gray-700">Hora</label>
+                        <input type="time" id="hora" name="hora" required
+                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
                 </div>
             </section>
 
-            <!-- Sección de información general (solo lectura) -->
+            <!-- Sección 2: Información general -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">a) INFORMACIÓN GENERAL</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Sección 2: Información general</h2>
                 <p class="text-gray-600 leading-relaxed">
-                    El Ayurveda es un sistema milenario de medicina y estilo de vida, originario de la India hace más de 5.000 años. La palabra "Ayurveda" se traduce como "La ciencia de la vida", y su enfoque es profundamente holístico: Busca la armonía entre el cuerpo, mente y espíritu, reconociendo la conexión intrínseca con la naturaleza. En el ámbito occidental, el Ayurveda es reconocido como un valioso sistema de medicina complementaria e integrativa. Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
+                    INFORMACIÓN GENERAL: El Ayurveda es un sistema milenario de medicina y estilo de vida, originario de la India hace más de 5.000 años. La palabra "Ayurveda" se traduce como "La ciencia de la vida", y su enfoque es profundamente holístico: busca la armonía entre el cuerpo, mente y espíritu, reconociendo la conexión intrínseca con la naturaleza.
                 </p>
-            </section>
-            
-            <!-- Sección de objetivos (solo lectura) -->
-            <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">b) OBJETIVOS DEL TRATAMIENTO</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.
+                <p class="mt-4 text-gray-600 leading-relaxed">
+                    En el ámbito occidental, el Ayurveda es reconocido como un valioso sistema de medicina complementaria e integrativa. Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
                 </p>
-            </section>
-            
-            <!-- Sección "a tener en cuenta" (solo lectura) -->
-            <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">c) A TENER EN CUENTA</h2>
-                <ul class="list-disc list-inside mt-4 text-gray-600 space-y-2">
-                    <li>**Respetar el tiempo de uso:** Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.</li>
-                    <li>**No exceder la dosis:** La cantidad recomendada es la efectiva y segura.</li>
-                    <li>**Escuchar su cuerpo:** Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
-                </ul>
             </section>
 
-            <!-- Sección de consentimiento final (checkbox) -->
+            <!-- Sección 3: A tener en cuenta (checkboxes) -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Sección 3: A tener en cuenta</h2>
+                <p class="text-sm text-gray-500 mb-4">Marque cada punto para confirmar que ha leído y comprendido:</p>
+                <div class="space-y-3">
+                    <!-- Checkbox 1 -->
+                    <div class="flex items-start">
+                        <input id="aclaracion1" type="checkbox" name="aclaracion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="aclaracion1" class="ml-3 text-sm font-medium text-gray-700">
+                            Tomaré las plantas solo por el período indicado.
+                        </label>
+                    </div>
+                    <!-- Checkbox 2 -->
+                    <div class="flex items-start">
+                        <input id="aclaracion2" type="checkbox" name="aclaracion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="aclaracion2" class="ml-3 text-sm font-medium text-gray-700">
+                            No excederé la dosis recomendada.
+                        </label>
+                    </div>
+                    <!-- Checkbox 3 -->
+                    <div class="flex items-start">
+                        <input id="aclaracion3" type="checkbox" name="aclaracion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="aclaracion3" class="ml-3 text-sm font-medium text-gray-700">
+                            Suspenderé el uso si tengo alguna molestia o reacción inusual.
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección 4: Confirmaciones (checkboxes) -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Sección 4: Confirmaciones</h2>
+                <p class="text-sm text-gray-500 mb-4">Por favor, confirme su consentimiento marcando los siguientes puntos:</p>
+                <div class="space-y-3">
+                    <!-- Checkbox 1 -->
+                    <div class="flex items-start">
+                        <input id="confirmacion1" type="checkbox" name="confirmacion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="confirmacion1" class="ml-3 text-sm font-medium text-gray-700">
+                            Entiendo mi estado de salud y que el tratamiento tiene fines complementarios.
+                        </label>
+                    </div>
+                    <!-- Checkbox 2 -->
+                    <div class="flex items-start">
+                        <input id="confirmacion2" type="checkbox" name="confirmacion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="confirmacion2" class="ml-3 text-sm font-medium text-gray-700">
+                            Me comprometo a brindar información veraz y seguir las indicaciones dadas.
+                        </label>
+                    </div>
+                    <!-- Checkbox 3 -->
+                    <div class="flex items-start">
+                        <input id="confirmacion3" type="checkbox" name="confirmacion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="confirmacion3" class="ml-3 text-sm font-medium text-gray-700">
+                            Entiendo que este tratamiento no sustituye la medicina convencional.
+                        </label>
+                    </div>
+                    <!-- Checkbox 4 -->
+                    <div class="flex items-start">
+                        <input id="confirmacion4" type="checkbox" name="confirmacion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="confirmacion4" class="ml-3 text-sm font-medium text-gray-700">
+                            Me comprometo a consultar con mi médico ante cualquier efecto adverso.
+                        </label>
+                    </div>
+                    <!-- Checkbox 5 -->
+                    <div class="flex items-start">
+                        <input id="confirmacion5" type="checkbox" name="confirmacion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="confirmacion5" class="ml-3 text-sm font-medium text-gray-700">
+                            He tenido oportunidad de hacer preguntas y todas han sido respondidas.
+                        </label>
+                    </div>
+                    <!-- Checkbox 6 -->
+                    <div class="flex items-start">
+                        <input id="confirmacion6" type="checkbox" name="confirmacion" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="confirmacion6" class="ml-3 text-sm font-medium text-gray-700">
+                            Doy mi consentimiento voluntario para realizar el tratamiento ayurvédico.
+                        </label>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Campo para el correo electrónico del destinatario -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Destinatario del PDF</h2>
+                <div>
+                    <label for="destinatario-correo" class="block text-sm font-medium text-gray-700">Correo electrónico del destinatario</label>
+                    <input type="email" id="destinatario-correo" name="destinatario-correo" required
+                           class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+            </section>
+
+            <!-- Sección final: Comentarios -->
             <section class="pb-8">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">d) AL DAR MI CONSENTIMIENTO</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    Yo confirmo que se me informó en qué consiste el tratamiento, cómo se hace, sus beneficios y eventuales reacciones. He tenido oportunidad de aclarar mis dudas, y me han sido respondidas todas mis preguntas satisfactoriamente. Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.
-                </p>
-                <div class="mt-4 flex items-start">
-                    <input id="consentimiento-final" type="checkbox" name="consentimiento-final" required
-                           class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                    <label for="consentimiento-final" class="ml-3 text-sm font-medium text-gray-700">
-                        Doy mi consentimiento para el tratamiento.
-                    </label>
-                </div>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Sección final: Comentarios</h2>
+                <p class="text-sm text-gray-500 mb-4">¿Desea dejar algún comentario o aclaración adicional?</p>
+                <textarea id="comentarios" name="comentarios" rows="4"
+                          class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"></textarea>
             </section>
 
             <!-- Botón de envío -->
             <div class="flex justify-end">
                 <button type="submit" id="submit-button"
                         class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                    Enviar Consentimiento
+                    Enviar
                 </button>
             </div>
         </form>
@@ -126,7 +219,7 @@
             // Muestra un mensaje de carga
             const messageContainer = document.getElementById('message-container');
             const messageBox = document.getElementById('message-box');
-            messageBox.innerHTML = '<p class="text-blue-800 font-medium">Procesando su consentimiento...</p>';
+            messageBox.innerHTML = '<p class="text-blue-800 font-medium">Generando PDF y simulando envío...</p>';
             messageBox.classList.add('bg-blue-100');
             messageBox.classList.remove('hidden');
             messageContainer.classList.remove('hidden');
@@ -134,36 +227,58 @@
             const submitButton = document.getElementById('submit-button');
             submitButton.disabled = true;
 
+            const recipientEmail = document.getElementById('destinatario-correo').value;
+            const flaskUrl = 'http://200.85.183.166/submit-form'; // URL de tu servidor Flask
+            const formContainer = document.getElementById('form-container');
+
+            // Recopila los datos del formulario
             const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            
+            // Espera un breve momento para que el mensaje de carga sea visible
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             try {
-                // *** ESTA ES LA LÍNEA CLAVE QUE DEBES EDITAR ***
-                // Reemplaza 'TU_DIRECCION_IP' con la dirección IP de tu servidor de Arch Linux.
-                const response = await fetch('https://200.85.183.166:5000/submit-form', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
+                // Simula la captura del formulario para el PDF
+                const canvas = await html2canvas(formContainer, { scale: 2 });
+                const imgData = canvas.toDataURL('image/png');
                 
-                const result = await response.json();
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = 210; 
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                const pdfData = doc.output('blob'); // Obtiene el PDF como un blob para el envío
+                
+                // Envía los datos del formulario (incluyendo el PDF simulado) al servidor Flask
+                const payload = new FormData();
+                payload.append('pdf', pdfData, 'consentimiento.pdf');
+                for (const key in formDataObject) {
+                    payload.append(key, formDataObject[key]);
+                }
+
+                const response = await fetch(flaskUrl, {
+                    method: 'POST',
+                    body: payload
+                });
 
                 if (response.ok) {
-                    messageBox.innerHTML = `<p class="text-green-800 font-medium">${result.message}</p>`;
-                    messageBox.classList.remove('bg-blue-100');
+                    messageBox.innerHTML = `<p class="text-green-800 font-medium">¡Gracias! El PDF ha sido generado y los datos enviados con éxito.</p>`;
+                    messageBox.classList.remove('bg-blue-100', 'bg-red-100');
                     messageBox.classList.add('bg-green-100');
+                    // Opcionalmente, puedes descargar el PDF aquí también si lo deseas
+                    // doc.save('consentimiento_informado.pdf');
                 } else {
-                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Error: ${result.error || 'No se pudo enviar el formulario.'}</p>`;
-                    messageBox.classList.remove('bg-blue-100');
-                    messageBox.classList.add('bg-red-100');
+                    throw new Error(`Error en el servidor: ${response.status}`);
                 }
             } catch (error) {
-                messageBox.innerHTML = '<p class="text-red-800 font-medium">Ocurrió un error de conexión. Por favor, inténtelo de nuevo.</p>';
-                messageBox.classList.remove('bg-blue-100');
+                console.error('Error al enviar el formulario:', error);
+                messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error. Por favor, inténtelo de nuevo.</p>`;
+                messageBox.classList.remove('bg-blue-100', 'bg-green-100');
                 messageBox.classList.add('bg-red-100');
-                console.error('Error:', error);
             } finally {
                 submitButton.disabled = false;
             }
