@@ -15,31 +15,34 @@
         }
 
         /* Estilo para el tilde que se mostrará en el PDF */
-        .checkbox-container-pdf {
-            position: relative;
+        .pdf-checkbox-checked {
             display: inline-block;
-            width: 16px; /* Ancho del recuadro del checkbox */
-            height: 16px; /* Altura del recuadro del checkbox */
-            border: 1px solid #d1d5db;
-            background-color: #fff;
-            border-radius: 4px;
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid #3b82f6; /* Borde azul para que sea visible */
+            background-color: #3b82f6; /* Fondo azul */
+            border-radius: 0.25rem;
+            position: relative;
         }
-        
-        /* Estilo para el tilde dentro del recuadro */
-        .checkbox-container-pdf::after {
-            content: '✓'; /* Carácter del tilde */
+
+        .pdf-checkbox-checked::after {
+            content: '✓';
+            color: white;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 14px;
-            color: #1e40af; /* Color del tilde */
-            display: none;
+            font-size: 0.75rem;
+            font-weight: bold;
         }
-
-        /* Clase para mostrar el tilde */
-        .checkbox-container-pdf.checked::after {
-            display: block;
+        
+        .pdf-checkbox-unchecked {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid #d1d5db;
+            background-color: #fff;
+            border-radius: 0.25rem;
         }
 
     </style>
@@ -136,11 +139,10 @@
             <section class="border-b pb-8 border-gray-200">
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para el tratamiento</h2>
                 <div class="flex items-start">
-                    <!-- Contenedor visible para el tilde en el PDF -->
-                    <div id="pdf-checkbox" class="checkbox-container-pdf hidden"></div>
-                    <!-- Casilla de verificación real, oculta para el PDF -->
+                    <!-- Casilla de verificación real, que el usuario tilda en la web -->
                     <input id="consentimientoFinal" type="checkbox" name="consentimientoFinal" required
                            class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                    <span id="pdf-checkbox-placeholder" class="hidden"></span>
                 </div>
             </section>
             
@@ -168,6 +170,8 @@
             const submitButton = document.getElementById('submit-button');
             const messageContainer = document.getElementById('message-container');
             const messageBox = document.getElementById('message-box');
+            const originalCheckbox = document.getElementById('consentimientoFinal');
+            const pdfCheckboxPlaceholder = document.getElementById('pdf-checkbox-placeholder');
 
             // Muestra un mensaje de carga
             messageBox.innerHTML = '<p class="text-blue-800 font-medium">Enviando formulario...</p>';
@@ -183,13 +187,13 @@
             const formInputs = document.querySelectorAll('#consentimientoForm input');
             formInputs.forEach(input => {
                 if (input.type === 'checkbox') {
+                    // Si el checkbox está marcado, reemplazamos el original con el HTML que se renderizará en el PDF
                     if (input.checked) {
-                        // Oculta el checkbox original y muestra el contenedor con el tilde para el PDF
-                        const pdfCheckboxContainer = document.getElementById('pdf-checkbox');
-                        pdfCheckboxContainer.classList.remove('hidden');
-                        pdfCheckboxContainer.classList.add('checked');
-                        input.classList.add('hidden'); // Oculta el checkbox original en el HTML a ser enviado
+                        pdfCheckboxPlaceholder.innerHTML = '<span class="pdf-checkbox-checked"></span>';
+                    } else {
+                        pdfCheckboxPlaceholder.innerHTML = '<span class="pdf-checkbox-unchecked"></span>';
                     }
+                    input.style.display = 'none'; // Ocultamos el checkbox original
                 } else {
                     input.setAttribute('value', input.value);
                     input.setAttribute('disabled', 'true'); // Deshabilita los campos para que no se puedan editar
@@ -240,13 +244,8 @@
                 // Reestablece los elementos para la interfaz de usuario después del envío
                 submitButton.style.display = 'block';
                 messageContainer.style.display = 'block';
-                const pdfCheckboxContainer = document.getElementById('pdf-checkbox');
-                const originalCheckbox = document.getElementById('consentimientoFinal');
-                if (originalCheckbox.checked) {
-                    pdfCheckboxContainer.classList.add('hidden');
-                    pdfCheckboxContainer.classList.remove('checked');
-                    originalCheckbox.classList.remove('hidden');
-                }
+                originalCheckbox.style.display = 'block';
+                pdfCheckboxPlaceholder.innerHTML = '';
             }
         });
     </script>
