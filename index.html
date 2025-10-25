@@ -14,20 +14,22 @@
             background-color: #f3f4f6;
         }
 
-        /* Estilo para la casilla de verificación simulada */
+        /* ------------------------------------------------------------------- */
+        /* Estilos para la CASILLA DE VERIFICACIÓN (PANTALLA) */
+        /* ------------------------------------------------------------------- */
         .custom-checkbox {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 1.25rem;
-            height: 1.25rem;
-            /* Borde más oscuro y visible para que el recuadro se note */
+            width: 1.5rem; /* Aumentado ligeramente para mejor tacto */
+            height: 1.5rem; /* Aumentado ligeramente para mejor tacto */
             border: 2px solid #6b7280; 
             background-color: #fff;
-            border-radius: 0.25rem;
+            border-radius: 0.3rem;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             user-select: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Sombra suave */
         }
         
         .custom-checkbox.checked {
@@ -38,14 +40,52 @@
         .custom-checkbox .checkmark {
             color: #fff;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.2rem; /* Tamaño de la marca en pantalla */
             display: none;
+            line-height: 1; /* Asegura que el tilde esté centrado */
         }
 
         .custom-checkbox.checked .checkmark {
             display: block;
         }
+        
+        /* ------------------------------------------------------------------- */
+        /* SOLUCIÓN PUNTO 2: Estilos solo para el PDF (PRINT) */
+        /* ------------------------------------------------------------------- */
+        @media print {
+            .custom-checkbox {
+                /* Aseguramos que el recuadro sea fijo y grande para el PDF */
+                width: 25px; 
+                height: 25px;
+                border: 3px solid #1f2937 !important; /* Borde más grueso y oscuro */
+                border-radius: 4px;
+                background-color: white !important; /* Fuerza fondo blanco para impresión */
+            }
 
+            .custom-checkbox.checked {
+                /* En impresión, el fondo ya no es azul, sino que solo se muestra el tilde */
+                background-color: white !important; 
+                border-color: #1f2937 !important;
+            }
+            
+            .custom-checkbox.checked .checkmark {
+                /* La marca de verificación para el PDF */
+                display: block !important;
+                color: #1f2937 !important; /* Tilde en color negro o muy oscuro */
+                font-size: 20px; /* Tilde GRANDE para que se vea claro */
+                font-weight: 900; /* Super grueso */
+                /* Usamos el símbolo Unicode de checkmark (✓) para la impresión */
+                content: "\2713"; 
+            }
+
+            /* Hacemos que los inputs deshabilitados se vean como texto plano y no como inputs grises */
+            input:disabled {
+                background-color: transparent !important;
+                border-color: transparent !important;
+                box-shadow: none !important;
+                padding-left: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -72,25 +112,25 @@
                     <div>
                         <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y apellido</label>
                         <input type="text" id="nombre" name="nombre" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                     <!-- Campo DNI -->
                     <div>
                         <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
                         <input type="text" id="dni" name="dni" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                     <!-- Campo Lugar -->
                     <div>
                         <label for="lugar" class="block text-sm font-medium text-gray-700">Lugar</label>
                         <input type="text" id="lugar" name="lugar" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                     <!-- Campo Fecha -->
                     <div>
                         <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
                         <input type="date" id="fecha" name="fecha" required
-                               class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                 </div>
             </section>
@@ -141,8 +181,11 @@
                 <h2 class="text-2xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para el tratamiento</h2>
                 <div class="flex items-center">
                     <div id="consentimientoCheckbox" class="custom-checkbox">
-                        <span class="checkmark">✓</span>
+                        <!-- El checkmark ahora usa un caracter Unicode que se puede estilizar en CSS de impresión -->
+                        <span class="checkmark">&#10003;</span>
                     </div>
+                    <!-- CAMPO OCULTO (Necesario para que Weasyprint lo "vea" y sepa si el checkbox estaba marcado) -->
+                    <input type="hidden" id="consentimiento_estado" name="consentimiento_estado" value="No">
                 </div>
             </section>
             
@@ -170,6 +213,7 @@
             const messageContainer = document.getElementById('message-container');
             const messageBox = document.getElementById('message-box');
             const customCheckbox = document.getElementById('consentimientoCheckbox');
+            const consentimientoEstadoInput = document.getElementById('consentimiento_estado'); 
 
             let isChecked = false;
 
@@ -178,13 +222,15 @@
                 isChecked = !isChecked;
                 if (isChecked) {
                     customCheckbox.classList.add('checked');
+                    consentimientoEstadoInput.value = 'Sí'; 
                 } else {
                     customCheckbox.classList.remove('checked');
+                    consentimientoEstadoInput.value = 'No'; 
                 }
             });
 
             form.addEventListener('submit', async function(event) {
-                event.preventDefault(); // Previene el envío del formulario por defecto
+                event.preventDefault(); 
                 
                 // Validación para la casilla de verificación
                 if (!isChecked) {
@@ -202,30 +248,41 @@
                 messageContainer.classList.remove('hidden');
                 submitButton.disabled = true;
 
-                // URL de tu servidor Flask
                 const flaskUrl = 'https://imuser.ddns.net/submit-form';
                 
-                // Lógica para preparar el HTML para el PDF
+                // --- PREPARACIÓN DEL HTML PARA EL PDF ---
+                
+                // 1. Deshabilitar inputs para que se vean como texto fijo en el PDF.
                 const formInputs = document.querySelectorAll('#consentimientoForm input');
                 formInputs.forEach(input => {
-                    input.setAttribute('value', input.value);
+                    input.setAttribute('value', input.value); 
                     input.setAttribute('disabled', 'true');
                 });
-
-                // Oculta el botón de envío y los mensajes en el HTML que se enviará al PDF
+                
+                // 2. Aplicar la clase 'checked' si el consentimiento fue dado
+                if (isChecked) {
+                    customCheckbox.classList.add('checked');
+                }
+                
+                // 3. Oculta elementos que no queremos en el PDF (botón, mensajes)
                 submitButton.style.display = 'none';
                 messageContainer.style.display = 'none';
 
+                // 4. Obtiene el HTML completo del contenedor (incluyendo los valores y el estado de la casilla)
                 const formContainer = document.getElementById('form-container');
                 const formHtml = formContainer.outerHTML;
 
+                // 5. Prepara los datos a enviar
                 const formData = {
                     nombre: document.getElementById('nombre').value,
                     dni: document.getElementById('dni').value,
                     lugar: document.getElementById('lugar').value,
                     fecha: document.getElementById('fecha').value,
+                    consentimiento: consentimientoEstadoInput.value, 
                     form_html: formHtml
                 };
+                
+                // --- ENVÍO ---
 
                 try {
                     const response = await fetch(flaskUrl, {
@@ -240,22 +297,41 @@
                         messageBox.innerHTML = `<p class="text-green-800 font-medium">¡Gracias! El formulario ha sido enviado con éxito.</p>`;
                         messageBox.classList.remove('bg-blue-100', 'bg-red-100');
                         messageBox.classList.add('bg-green-100');
+                        
+                        // Limpieza
+                        form.reset(); 
+                        isChecked = false;
+                        customCheckbox.classList.remove('checked');
+                        consentimientoEstadoInput.value = 'No';
                     } else {
-                        const errorText = await response.text();
-                        messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${response.status}. Respuesta: ${errorText}.</p>`;
+                        const errorData = await response.json(); 
+                        const errorMessage = errorData.message || `Error en el servidor: ${response.status} (${response.statusText})`;
+                        messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${errorMessage}</p>`;
                         messageBox.classList.remove('bg-blue-100', 'bg-green-100');
                         messageBox.classList.add('bg-red-100');
                     }
                 } catch (error) {
                     console.error('Error al enviar el formulario:', error);
-                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Esto puede deberse a un problema de CORS o a que el servidor no está en funcionamiento.</p>`;
+                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Revisa si el servidor está funcionando.</p>`;
                     messageBox.classList.remove('bg-blue-100', 'bg-green-100');
                     messageBox.classList.add('bg-red-100');
                 } finally {
+                    // --- RESTABLECER LA INTERFAZ DE USUARIO ---
                     submitButton.disabled = false;
-                    // Reestablece los elementos para la interfaz de usuario después del envío
                     submitButton.style.display = 'block';
                     messageContainer.style.display = 'block';
+
+                    // Reactiva los inputs para un posible nuevo uso
+                    formInputs.forEach(input => {
+                        input.removeAttribute('disabled');
+                    });
+                    
+                    // Asegura que la clase de checkmark se restaure correctamente
+                    if (isChecked) {
+                       customCheckbox.classList.add('checked');
+                    } else {
+                       customCheckbox.classList.remove('checked');
+                    }
                 }
             });
         });
