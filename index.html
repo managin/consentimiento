@@ -272,14 +272,23 @@
                 const formContainer = document.getElementById('form-container');
                 const formHtml = formContainer.outerHTML;
 
+                // --- LÓGICA: CREAR NOMBRE DEL PDF BASADO EN EL DNI ---
+                const dniValue = document.getElementById('dni').value;
+                // Sanitizamos y creamos el nombre de archivo. Usaremos solo números y letras.
+                const dniFilenamePart = dniValue.replace(/[^a-zA-Z0-9]/g, '').trim();
+                const filename = `Consentimiento_DNI_${dniFilenamePart}.pdf`;
+                // -----------------------------------------------------------
+
                 // 5. Prepara los datos a enviar
                 const formData = {
                     nombre: document.getElementById('nombre').value,
-                    dni: document.getElementById('dni').value,
+                    dni: dniValue,
                     lugar: document.getElementById('lugar').value,
                     fecha: document.getElementById('fecha').value,
                     consentimiento: consentimientoEstadoInput.value, 
-                    form_html: formHtml
+                    form_html: formHtml,
+                    // Enviamos el nombre de archivo explícito para que el backend lo use
+                    pdf_filename: filename 
                 };
                 
                 // --- ENVÍO ---
