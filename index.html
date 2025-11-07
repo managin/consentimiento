@@ -10,29 +10,6 @@
         body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; }
         .custom-input { background-color: #f9fafb; border: 1px solid #d1d5db; }
         .custom-input:focus { border-color: #3b82f6; outline: none; }
-        .custom-checkbox {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 1.5rem;
-            height: 1.5rem;
-            border: 2px solid #6b7280;
-            background-color: #fff;
-            border-radius: 0.3rem;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-        .custom-checkbox.checked {
-            background-color: #3b82f6;
-            border-color: #3b82f6;
-        }
-        .checkmark {
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-            display: none;
-        }
-        .custom-checkbox.checked .checkmark { display: block; }
     </style>
 </head>
 <body class="p-6 md:p-10">
@@ -40,9 +17,7 @@
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">CONSENTIMIENTO INFORMADO</h1>
         <hr class="border-gray-400 mb-4">
 
-        <p class="text-gray-700 mb-4">
-            El Consentimiento Informado es la declaración libre y voluntaria efectuada por el consultante, emitida luego de recibir información clara, precisa y adecuada inherente a su consulta, y a los procedimientos o pautas propuestas, con respecto a objetivos y beneficios de Ayurveda. Su firma en el presente documento es la constancia de que comprendió todo lo explicado y presta conformidad a iniciar con el acompañamiento propuesto.
-        </p>
+        <p class="text-gray-700 mb-4">El Consentimiento Informado es la declaración libre y voluntaria efectuada por el consultante, emitida luego de recibir información clara, precisa y adecuada inherente a su consulta, y a los procedimientos o pautas propuestas, con respecto a objetivos y beneficios de Ayurveda. Su firma en el presente documento es la constancia de que comprendió todo lo explicado y presta conformidad a iniciar con el acompañamiento propuesto.</p>
 
         <p class="text-gray-800 font-semibold mt-6">Lucía Pizzorno</p>
         <p class="text-gray-600 italic mb-6">Profesional en Medicina Ayurveda (Vaidya B.A.M.S., Acharya - India)</p>
@@ -58,47 +33,36 @@
         </div>
 
         <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-3">a) INFORMACIÓN GENERAL</h2>
-        <p class="text-gray-700 mb-4 whitespace-pre-line">
-La Medicina Ayurveda es una práctica de bienestar complementaria e integrativa enfocada en el equilibrio de la constitución (Doshas), la mejora del estilo de vida (Dinacharya) y la promoción de la salud.
-Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
-Las recomendaciones dietéticas, de estilo de vida, y el uso de plantas o terapias corporales se basan en la tradición ayurvédica y en el estudio de la constitución individual (Prakriti y Vikruti).
-La Profesional en Medicina Ayurveda es egresada de la India con el título de Médica Ayurveda (Vaidya - B.A.M.S.), el cual aún no se encuentra revalidado como título alopático en la República Argentina, su función se limita a la guía de bienestar y estilo de vida, razón por la cual se considera una terapia complementaria.
-La Profesional en Medicina Ayurveda no realiza actos de la medicina alopática, tales como el diagnóstico, prescripción de fármacos o realización de cirugías.
-        </p>
+        <p class="text-gray-700 mb-4">La Medicina Ayurveda es una práctica de bienestar complementaria e integrativa enfocada en el equilibrio de la constitución (Doshas), la mejora del estilo de vida (Dinacharya) y la promoción de la salud. Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica. Las recomendaciones dietéticas, de estilo de vida, y el uso de plantas o terapias corporales se basan en la tradición ayurvédica y en el estudio de la constitución individual (Prakriti y Vikruti). La Profesional en Medicina Ayurveda es egresada de la India con el título de Médica Ayurveda (Vaidya - B.A.M.S.), el cual aún no se encuentra revalidado como título alopático en la República Argentina, su función se limita a la guía de bienestar y estilo de vida, razón por la cual se considera una terapia complementaria. La Profesional en Medicina Ayurveda no realiza actos de la medicina alopática, tales como el diagnóstico, prescripción de fármacos o realización de cirugías.</p>
 
         <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-3">b) OBJETIVOS DE LA GUÍA AYURVÉDICA</h2>
-        <p class="text-gray-700 mb-4 whitespace-pre-line">
-A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.
-        </p>
+        <p class="text-gray-700 mb-4">A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.</p>
 
         <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-3">c) A TENER EN CUENTA</h2>
-        <p class="text-gray-700 mb-4 whitespace-pre-line">
-Si bien las respuestas inusuales o molestias son verdaderamente muy poco frecuentes, y la vasta mayoría de las personas se siente muy bien con estas terapias, para garantizar que el uso de las plantas medicinales sea siempre beneficioso y seguro, recuerde las siguientes reglas fundamentales:
-Respetar el tiempo de uso: Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.
-No exceder la dosis aconsejada: La cantidad recomendada es la efectiva y segura.
-Escuchar su cuerpo: Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.
-        </p>
+        <p class="text-gray-700 mb-4">Si bien las respuestas inusuales o molestias son verdaderamente muy poco frecuentes, y la vasta mayoría de las personas se siente muy bien con estas terapias, para garantizar que el uso de las plantas medicinales sea siempre beneficioso y seguro, recuerde las siguientes reglas fundamentales:</p>
+        <ul class="list-disc list-inside text-gray-700 mb-4">
+            <li>Respetar el tiempo de uso: Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.</li>
+            <li>No exceder la dosis aconsejada: La cantidad recomendada es la efectiva y segura.</li>
+            <li>Escuchar su cuerpo: Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
+        </ul>
 
         <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-3">d) AL DAR MI CONSENTIMIENTO</h2>
-        <p class="text-gray-700 mb-4 whitespace-pre-line">
-1. Entiendo mi estado de salud y que la implementación de la Guía Ayurveda supone beneficios esperados para restablecer el equilibrio natural de mi cuerpo y mejorar mi estilo de vida a efectos de prevenir enfermedades y promover la longevidad. Se me explicó acabadamente acerca de los métodos y/o pautas sugeridas.
-2. He brindado información veraz respecto de mi estado de salud actual y mi condición médica, diagnósticos previos (incluidos los de enfermedades crónicas, autoinmunes o cáncer), medicación alopática, suplementos y tratamientos paralelos que esté recibiendo antes y durante esta consulta. Me comprometo a brindar esta información toda vez que me sea solicitada, y a cumplir con las pautas que me sean indicadas y también a informar aquellas que no he de cumplir.
-3. Entiendo que la Guía Ayurveda es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional. Entiendo que resulta imprescindible seguir las indicaciones de mi médico de cabecera para el mantenimiento de mi bienestar integral, y que no suspenderé, abandonaré o alteraré ninguna medicación o tratamiento médico sin la indicación expresa de mi médico tratante. Asimismo informaré si mi médico me indica una modificación en mi tratamiento alopático que pueda interactuar con las recomendaciones ayurvédicas.
-4. Asumo que en caso de experimentar cualquier reacción adversa, suspenderé de inmediato la aplicación de la Guía Ayurveda, y lo informaré a la mayor brevedad posible. La Profesional en Medicina Ayurveda no asumirá responsabilidad alguna por el uso inapropiado o indebido de las sugerencias ofrecidas.
-5. Autorizo a la Profesional en Medicina Ayurveda a almacenar la información del historial de salud únicamente para fines de seguimiento terapéutico interno, y el Terapeuta se compromete a mantener la estricta confidencialidad de la información compartida por mí como consultante.
-        </p>
+        <p class="text-gray-700 mb-4">1. Entiendo mi estado de salud y que la implementación de la Guía Ayurveda supone beneficios esperados para restablecer el equilibrio natural de mi cuerpo y mejorar mi estilo de vida a efectos de prevenir enfermedades y promover la longevidad. Se me explicó acabadamente acerca de los métodos y/o pautas sugeridas.</p>
 
-        <h2 class="text-xl font-semibold text-gray-800 mt-8 mb-3">6. MUY IMPORTANTE</h2>
-        <p class="text-gray-700 mb-4 whitespace-pre-line">
-La utilización de la Guía Ayurveda, es libre y voluntaria, y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida por parte del profesional. Si usted tuviera cualquier duda sobre el mismo, los riesgos o los resultados, no dude en preguntar las veces que considere necesario. Le explicaremos todo lo que usted desee saber. Si decidiera no aplicar la Guía, o suspender su utilización, puede hacerlo cuando lo desee y con total libertad, debiendo informarnos de tal decisión.
-Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.
-        </p>
+        <p class="text-gray-700 mb-4">2. He brindado información veraz respecto de mi estado de salud actual y mi condición médica, diagnósticos previos (incluidos los de enfermedades crónicas, autoinmunes o cáncer), medicación alopática, suplementos y tratamientos paralelos que esté recibiendo antes y durante esta consulta. Me comprometo a brindar esta información toda vez que me sea solicitada, y a cumplir con las pautas que me sean indicadas y también a informar aquellas que no he de cumplir.</p>
+
+        <p class="text-gray-700 mb-4">3. Entiendo que la Guía Ayurveda es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional. Entiendo que resulta imprescindible seguir las indicaciones de mi médico de cabecera para el mantenimiento de mi bienestar integral, y que no suspenderé, abandonaré o alteraré ninguna medicación o tratamiento médico sin la indicación expresa de mi médico tratante. Asimismo informaré si mi médico me indica una modificación en mi tratamiento alopático que pueda interactuar con las recomendaciones ayurvédicas.</p>
+
+        <p class="text-gray-700 mb-4">4. Asumo que en caso de experimentar cualquier reacción adversa, suspenderé de inmediato la aplicación de la Guía Ayurveda, y lo informaré a la mayor brevedad posible. La Profesional en Medicina Ayurveda no asumirá responsabilidad alguna por el uso inapropiado o indebido de las sugerencias ofrecidas.</p>
+
+        <p class="text-gray-700 mb-4">5. Autorizo a la Profesional en Medicina Ayurveda a almacenar la información del historial de salud únicamente para fines de seguimiento terapéutico interno, y el Terapeuta se compromete a mantener la estricta confidencialidad de la información compartida por mí como consultante.</p>
+
+        <p class="text-gray-700 mb-4 font-semibold">6. MUY IMPORTANTE:</p>
+        <p class="text-gray-700 mb-4">La utilización de la Guía Ayurveda, es libre y voluntaria, y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida por parte del profesional. Si usted tuviera cualquier duda sobre el mismo, los riesgos o los resultados, no dude en preguntar las veces que considere necesario. Le explicaremos todo lo que usted desee saber. Si decidiera no aplicar la Guía, o suspender su utilización, puede hacerlo cuando lo desee y con total libertad, debiendo informarnos de tal decisión. Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.</p>
 
         <div class="mt-6 flex items-center space-x-3">
-            <div id="consentimientoCheckbox" class="custom-checkbox">
-                <span class="checkmark">✓</span>
-            </div>
-            <label for="consentimientoCheckbox" class="text-gray-700 font-medium select-none">Doy mi consentimiento para recibir el asesoramiento y la guía.</label>
+            <input id="consentimiento" type="checkbox" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+            <label for="consentimiento" class="text-gray-700 select-none">Doy mi consentimiento para recibir el asesoramiento y la guía.</label>
         </div>
 
         <div class="grid grid-cols-2 gap-4 mt-8">
@@ -122,10 +86,6 @@ Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso 
         <div class="mt-12 text-center">
             <p class="text-gray-600 text-lg">FIRMA:</p>
             <hr class="border-gray-400 mt-2 w-2/3 mx-auto">
-        </div>
-
-        <div class="text-center mt-8">
-            <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">Enviar</button>
         </div>
     </div>
 </body>
