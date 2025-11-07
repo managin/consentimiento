@@ -21,15 +21,15 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 1.5rem; /* Aumentado ligeramente para mejor tacto */
-            height: 1.5rem; /* Aumentado ligeramente para mejor tacto */
+            width: 1.5rem;
+            height: 1.5rem;
             border: 2px solid #6b7280; 
             background-color: #fff;
             border-radius: 0.3rem;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             user-select: none;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Sombra suave */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         
         .custom-checkbox.checked {
@@ -40,9 +40,9 @@
         .custom-checkbox .checkmark {
             color: #fff;
             font-weight: bold;
-            font-size: 1.2rem; /* Tamaño de la marca en pantalla */
+            font-size: 1.2rem;
             display: none;
-            line-height: 1; /* Asegura que el tilde esté centrado */
+            line-height: 1;
         }
 
         .custom-checkbox.checked .checkmark {
@@ -54,31 +54,26 @@
         /* ------------------------------------------------------------------- */
         @media print {
             .custom-checkbox {
-                /* Aseguramos que el recuadro sea fijo y grande para el PDF */
                 width: 25px; 
                 height: 25px;
-                border: 3px solid #1f2937 !important; /* Borde más grueso y oscuro */
+                border: 3px solid #1f2937 !important;
                 border-radius: 4px;
-                background-color: white !important; /* Fuerza fondo blanco para impresión */
+                background-color: white !important;
             }
 
             .custom-checkbox.checked {
-                /* En impresión, el fondo ya no es azul, sino que solo se muestra el tilde */
                 background-color: white !important; 
                 border-color: #1f2937 !important;
             }
             
             .custom-checkbox.checked .checkmark {
-                /* La marca de verificación para el PDF */
                 display: block !important;
-                color: #1f2937 !important; /* Tilde en color negro o muy oscuro */
-                font-size: 20px; /* Tilde GRANDE para que se vea claro */
-                font-weight: 900; /* Super grueso */
-                /* Usamos el símbolo Unicode de checkmark (✓) para la impresión */
+                color: #1f2937 !important;
+                font-size: 20px;
+                font-weight: 900;
                 content: "\2713"; 
             }
 
-            /* Hacemos que los inputs deshabilitados se vean como texto plano y no como inputs grises */
             input:disabled {
                 background-color: transparent !important;
                 border-color: transparent !important;
@@ -96,8 +91,12 @@
         <!-- Título y descripción -->
         <header class="mb-8 text-center">
             <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">CONSENTIMIENTO INFORMADO</h1>
-            <p class="mt-4 text-gray-600 leading-relaxed">
-                El Consentimiento Informado es la declaración de voluntad efectuada por el paciente, emitida luego de recibir información clara, precisa y adecuada inherente a procedimientos y tratamientos propuestos, con respecto a objetivos y beneficios. Su firma en el presente documento es la constancia de que entendió todo lo explicado y da conformidad acerca del mismo.
+            <div class="mt-6 border-b-2 border-gray-300 pb-2">
+                <p class="text-gray-700 font-medium">Lucía Pizzorno</p>
+                <p class="text-gray-600 text-sm">Profesional en Medicina Ayurveda (Vaidya B.A.M.S., Acharya - India)</p>
+            </div>
+            <p class="mt-6 text-gray-600 leading-relaxed text-justify">
+                El Consentimiento Informado es la declaración libre y voluntaria efectuada por el consultante, emitida luego de recibir información clara, precisa y adecuada inherente a su consulta, y a los procedimientos o pautas propuestas, con respecto a objetivos y beneficios de Ayurveda. Su firma en el presente documento es la constancia de que comprendió todo lo explicado y presta conformidad a iniciar con el acompañamiento propuesto.
             </p>
         </header>
 
@@ -106,11 +105,11 @@
 
             <!-- Sección 1: Datos personales -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Nombre, apellido, DNI y Datos del Consentimiento</h2>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Datos del Consultante</h2>
                 <div class="space-y-4">
                     <!-- Campo Nombre y apellido -->
                     <div>
-                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y apellido</label>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y apellido del consultante</label>
                         <input type="text" id="nombre" name="nombre" required
                                 class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
@@ -118,7 +117,7 @@
                     <div>
                         <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
                         <input type="text" id="dni" name="dni" required
-                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:focus:border-blue-500 transition duration-150 ease-in-out">
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
                     <!-- Campo Lugar -->
                     <div>
@@ -132,67 +131,96 @@
                         <input type="date" id="fecha" name="fecha" required
                                 class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
+                    <!-- Campo Hora -->
+                    <div>
+                        <label for="hora" class="block text-sm font-medium text-gray-700">Hora</label>
+                        <input type="time" id="hora" name="hora" required
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
                 </div>
             </section>
 
             <!-- Sección 2: Información general -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">a) INFORMACIÓN GENERAL</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    El Ayurveda es un sistema milenario de medicina y estilo de vida, originario de la India hace más de 5.000 años. La palabra "Ayurveda" se traduce como "La ciencia de la vida", y su enfoque es profundamente holístico: Busca la armonía entre el cuerpo, mente y espíritu, reconociendo la conexión intrínseca con la naturaleza.
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">a) INFORMACIÓN GENERAL:</h2>
+                <p class="text-gray-600 leading-relaxed text-justify mb-4">
+                    La Medicina Ayurveda es una práctica de bienestar complementaria e integrativa enfocada en el equilibrio de la constitución (Doshas), la mejora del estilo de vida (Dinacharya) y la promoción de la salud.
                 </p>
-                <p class="mt-4 text-gray-600 leading-relaxed">
-                    En el ámbito occidental, el Ayurveda es reconocido como un valioso sistema de medicina complementaria e integrativa. Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
+                <p class="text-gray-600 leading-relaxed text-justify mb-4">
+                    Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
+                </p>
+                <p class="text-gray-600 leading-relaxed text-justify mb-4">
+                    Las recomendaciones dietéticas, de estilo de vida, y el uso de plantas o terapias corporales se basan en la tradición ayurvédica y en el estudio de la constitución individual (Prakriti y Vikruti).
+                </p>
+                <p class="text-gray-600 leading-relaxed text-justify mb-4">
+                    La Profesional en Medicina Ayurveda es egresada de la India con el título de Médica Ayurveda (Vaidya - B.A.M.S.), el cual aún no se encuentra revalidado como título alopático en la República Argentina, su función se limita a la guía de bienestar y estilo de vida, razón por la cual se considera una terapia complementaria.
+                </p>
+                <p class="text-gray-600 leading-relaxed text-justify">
+                    La Profesional en Medicina Ayurveda no realiza actos de la medicina alopática, tales como el diagnóstico, prescripción de fármacos o realización de cirugías.
                 </p>
             </section>
             
-            <!-- Sección 3: Objetivos del Tratamiento -->
+            <!-- Sección 3: Objetivos -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">b) OBJETIVOS DEL TRATAMIENTO</h2>
-                <p class="text-gray-600 leading-relaxed">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">b) OBJETIVOS DE LA GUÍA AYURVÉDICA:</h2>
+                <p class="text-gray-600 leading-relaxed text-justify">
                     A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.
                 </p>
             </section>
 
             <!-- Sección 4: A tener en cuenta -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">c) A TENER EN CUENTA</h2>
-                <ul class="list-disc list-inside space-y-3 text-gray-700">
-                    <li>Respetar el tiempo de uso: Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.</li>
-                    <li>No exceder la dosis: La cantidad recomendada es la efectiva y segura.</li>
-                    <li>Escuchar su cuerpo: Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">c) A TENER EN CUENTA:</h2>
+                <p class="text-gray-600 leading-relaxed text-justify mb-4">
+                    Si bien las respuestas inusuales o molestias son verdaderamente muy poco frecuentes, y la vasta mayoría de las personas se siente muy bien con estas terapias, para garantizar que el uso de las plantas medicinales sea siempre beneficioso y seguro, recuerde las siguientes reglas fundamentales:
+                </p>
+                <ul class="list-disc list-inside space-y-3 text-gray-700 ml-4">
+                    <li><strong>Respetar el tiempo de uso:</strong> Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.</li>
+                    <li><strong>No exceder la dosis aconsejada:</strong> La cantidad recomendada es la efectiva y segura.</li>
+                    <li><strong>Escuchar su cuerpo:</strong> Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
                 </ul>
             </section>
 
-            <!-- Sección 5: AL DAR MI CONSENTIMIENTO -->
+            <!-- Sección 5: Al dar mi consentimiento -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">d) AL DAR MI CONSENTIMIENTO</h2>
-                <ul class="list-disc list-inside space-y-3 text-gray-700">
-                    <li>Entiendo mi estado de salud y que el tratamiento supone beneficios esperados para restablecer el equilibrio natural del cuerpo y mejorar mi estilo de vida. Se me explicó acabadamente acerca de los métodos y/o tratamientos.</li>
-                    <li>Me comprometo a brindar información veraz cuando sea solicitada y a cumplir con las indicaciones que me sean indicadas y también a informar aquellas que no he de cumplir.</li>
-                    <li>Entiendo que el tratamiento es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional.</li>
-                    <li>Asumo que en caso de experimentar cualquier reacción adversa, deberé suspender de inmediato la terapia. El terapeuta no asumirá responsabilidad alguna por el uso inapropiado o indebido del tratamiento ofrecido.</li>
-                    <li>Confirmo que se me informó en qué consiste el tratamiento, cómo se hace, sus beneficios y eventuales reacciones. He tenido oportunidad de aclarar mis dudas, y me han sido respondidas todas mis preguntas satisfactoriamente. Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.</li>
-                </ul>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">d) AL DAR MI CONSENTIMIENTO:</h2>
+                <div class="space-y-4 text-gray-600 leading-relaxed text-justify">
+                    <p>
+                        <strong>1.</strong> Entiendo mi estado de salud y que la implementación de la Guía Ayurveda supone beneficios esperados para restablecer el equilibrio natural de mi cuerpo y mejorar mi estilo de vida a efectos de prevenir enfermedades y promover la longevidad. Se me explicó acabadamente acerca de los métodos y/o pautas sugeridas.
+                    </p>
+                    <p>
+                        <strong>2.</strong> He brindado información veraz respecto de mi estado de salud actual y mi condición médica, diagnósticos previos (incluidos los de enfermedades crónicas, autoinmunes o cáncer), medicación alopática, suplementos y tratamientos paralelos que esté recibiendo antes y durante esta consulta. Me comprometo a brindar esta información toda vez que me sea solicitada, y a cumplir con las pautas que me sean indicadas y también a informar aquellas que no he de cumplir.
+                    </p>
+                    <p>
+                        <strong>3.</strong> Entiendo que la Guía Ayurveda es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional. Entiendo que resulta imprescindible seguir las indicaciones de mi médico de cabecera para el mantenimiento de mi bienestar integral, y que no suspenderé, abandonaré o alteraré ninguna medicación o tratamiento médico sin la indicación expresa de mi médico tratante. Asimismo informaré si mi médico me indica una modificación en mi tratamiento alopático que pueda interactuar con las recomendaciones ayurvédicas.
+                    </p>
+                    <p>
+                        <strong>4.</strong> Asumo que en caso de experimentar cualquier reacción adversa, suspenderé de inmediato la aplicación de la Guía Ayurveda, y lo informaré a la mayor brevedad posible. La Profesional en Medicina Ayurveda no asumirá responsabilidad alguna por el uso inapropiado o indebido de las sugerencias ofrecidas.
+                    </p>
+                    <p>
+                        <strong>5.</strong> Autorizo a la Profesional en Medicina Ayurveda a almacenar la información del historial de salud únicamente para fines de seguimiento terapéutico interno, y el Terapeuta se compromete a mantener la estricta confidencialidad de la información compartida por mí como consultante.
+                    </p>
+                    <p>
+                        <strong>6.</strong> Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.
+                    </p>
+                </div>
             </section>
 
             <!-- Sección 6: MUY IMPORTANTE -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">e) MUY IMPORTANTE</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    Este tratamiento es voluntario y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida. Si usted tuviera cualquier duda sobre el mismo, los riesgos o los resultados, no dude en preguntar las veces que considere necesario. Le explicamos todo lo que usted quiera saber. Si decidiera no realizar el tratamiento, o suspenderlo, puede hacerlo cuando lo desee y con total libertad.
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">MUY IMPORTANTE:</h2>
+                <p class="text-gray-600 leading-relaxed text-justify">
+                    La utilización de la Guía Ayurveda, es libre y voluntaria, y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida por parte del profesional. Si usted tuviera cualquier duda sobre el mismo, los riesgos o los resultados, no dude en preguntar las veces que considere necesario. Le explicaremos todo lo que usted desee saber. Si decidiera no aplicar la Guía, o suspender su utilización, puede hacerlo cuando lo desee y con total libertad, debiendo informarnos de tal decisión.
                 </p>
             </section>
             
             <!-- Sección final con la casilla de verificación simulada -->
             <section class="border-b pb-8 border-gray-200">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para el tratamiento</h2>
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para recibir el asesoramiento y la guía</h2>
                 <div class="flex items-center">
                     <div id="consentimientoCheckbox" class="custom-checkbox">
-                        <!-- El checkmark ahora usa un caracter Unicode que se puede estilizar en CSS de impresión -->
                         <span class="checkmark">&#10003;</span>
                     </div>
-                    <!-- CAMPO OCULTO (Necesario para que Weasyprint lo "vea" y sepa si el checkbox estaba marcado) -->
                     <input type="hidden" id="consentimiento_estado" name="consentimiento_estado" value="No">
                 </div>
             </section>
@@ -206,7 +234,7 @@
             </div>
         </form>
 
-        <!-- Contenedor para mostrar mensajes (ej. éxito, error) -->
+        <!-- Contenedor para mostrar mensajes -->
         <div id="message-container" class="mt-8 hidden">
             <div id="message-box" class="p-4 rounded-md shadow-sm"></div>
         </div>
@@ -225,7 +253,6 @@
 
             let isChecked = false;
 
-            // Maneja el clic en la casilla de verificación simulada
             customCheckbox.addEventListener('click', () => {
                 isChecked = !isChecked;
                 if (isChecked) {
@@ -240,7 +267,6 @@
             form.addEventListener('submit', async function(event) {
                 event.preventDefault(); 
                 
-                // Validación para la casilla de verificación
                 if (!isChecked) {
                     messageBox.innerHTML = '<p class="text-red-800 font-medium">Por favor, marca la casilla de consentimiento para continuar.</p>';
                     messageBox.classList.remove('bg-blue-100', 'bg-green-100');
@@ -249,7 +275,6 @@
                     return;
                 }
 
-                // Muestra un mensaje de carga
                 messageBox.innerHTML = '<p class="text-blue-800 font-medium">Enviando formulario...</p>';
                 messageBox.classList.remove('bg-green-100', 'bg-red-100');
                 messageBox.classList.add('bg-blue-100');
@@ -258,48 +283,36 @@
 
                 const flaskUrl = 'https://imuser.ddns.net/submit-form';
                 
-                // --- PREPARACIÓN DEL HTML PARA EL PDF ---
-                
-                // 1. Deshabilitar inputs para que se vean como texto fijo en el PDF.
                 const formInputs = document.querySelectorAll('#consentimientoForm input');
                 formInputs.forEach(input => {
                     input.setAttribute('value', input.value); 
                     input.setAttribute('disabled', 'true');
                 });
                 
-                // 2. Aplicar la clase 'checked' si el consentimiento fue dado
                 if (isChecked) {
                     customCheckbox.classList.add('checked');
                 }
                 
-                // 3. Oculta elementos que no queremos en el PDF (botón, mensajes)
                 submitButton.style.display = 'none';
                 messageContainer.style.display = 'none';
 
-                // 4. Obtiene el HTML completo del contenedor (incluyendo los valores y el estado de la casilla)
                 const formContainer = document.getElementById('form-container');
                 const formHtml = formContainer.outerHTML;
 
-                // --- LÓGICA: CREAR NOMBRE DEL PDF BASADO EN EL DNI ---
                 const dniValue = document.getElementById('dni').value;
-                // Sanitizamos y creamos el nombre de archivo. Usaremos solo números y letras.
                 const dniFilenamePart = dniValue.replace(/[^a-zA-Z0-9]/g, '').trim();
                 const filename = `Consentimiento_DNI_${dniFilenamePart}.pdf`;
-                // -----------------------------------------------------------
 
-                // 5. Prepara los datos a enviar
                 const formData = {
                     nombre: document.getElementById('nombre').value,
                     dni: dniValue,
                     lugar: document.getElementById('lugar').value,
                     fecha: document.getElementById('fecha').value,
+                    hora: document.getElementById('hora').value,
                     consentimiento: consentimientoEstadoInput.value, 
                     form_html: formHtml,
-                    // Enviamos el nombre de archivo explícito para que el backend lo use
                     pdf_filename: filename 
                 };
-                
-                // --- ENVÍO ---
 
                 try {
                     const response = await fetch(flaskUrl, {
@@ -315,7 +328,6 @@
                         messageBox.classList.remove('bg-blue-100', 'bg-red-100');
                         messageBox.classList.add('bg-green-100');
                         
-                        // Limpieza
                         form.reset(); 
                         isChecked = false;
                         customCheckbox.classList.remove('checked');
@@ -333,17 +345,14 @@
                     messageBox.classList.remove('bg-blue-100', 'bg-green-100');
                     messageBox.classList.add('bg-red-100');
                 } finally {
-                    // --- RESTABLECER LA INTERFAZ DE USUARIO ---
                     submitButton.disabled = false;
                     submitButton.style.display = 'block';
                     messageContainer.style.display = 'block';
 
-                    // Reactiva los inputs para un posible nuevo uso
                     formInputs.forEach(input => {
                         input.removeAttribute('disabled');
                     });
                     
-                    // Asegura que la clase de checkmark se restaure correctamente
                     if (isChecked) {
                        customCheckbox.classList.add('checked');
                     } else {
