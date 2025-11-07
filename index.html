@@ -1,260 +1,357 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consentimiento Informado</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f3f4f6;
-    }
-    .custom-checkbox {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 1.5rem;
-      height: 1.5rem;
-      border: 2px solid #6b7280;
-      background-color: #fff;
-      border-radius: 0.3rem;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      user-select: none;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-    .custom-checkbox.checked {
-      border-color: #3b82f6;
-      background-color: #3b82f6;
-    }
-    .custom-checkbox .checkmark {
-      color: #fff;
-      font-weight: bold;
-      font-size: 1.2rem;
-      display: none;
-      line-height: 1;
-    }
-    .custom-checkbox.checked .checkmark {
-      display: block;
-    }
-    @media print {
-      .custom-checkbox {
-        width: 25px;
-        height: 25px;
-        border: 3px solid #1f2937 !important;
-        border-radius: 4px;
-        background-color: white !important;
-      }
-      .custom-checkbox.checked .checkmark {
-        display: block !important;
-        color: #1f2937 !important;
-        font-size: 20px;
-        font-weight: 900;
-      }
-      input:disabled {
-        background-color: transparent !important;
-        border-color: transparent !important;
-        box-shadow: none !important;
-        padding-left: 0 !important;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consentimiento Informado</title>
+    <!-- Incluimos Tailwind CSS para un diseño limpio y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluimos una fuente moderna para mejorar la legibilidad -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        /* ------------------------------------------------------------------- */
+        /* Estilos para la CASILLA DE VERIFICACIÓN (PANTALLA) */
+        /* ------------------------------------------------------------------- */
+        .custom-checkbox {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 1.5rem; /* Aumentado ligeramente para mejor tacto */
+            height: 1.5rem; /* Aumentado ligeramente para mejor tacto */
+            border: 2px solid #6b7280; 
+            background-color: #fff;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            user-select: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Sombra suave */
+        }
+        
+        .custom-checkbox.checked {
+            border-color: #3b82f6;
+            background-color: #3b82f6;
+        }
+
+        .custom-checkbox .checkmark {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem; /* Tamaño de la marca en pantalla */
+            display: none;
+            line-height: 1; /* Asegura que el tilde esté centrado */
+        }
+
+        .custom-checkbox.checked .checkmark {
+            display: block;
+        }
+        
+        /* ------------------------------------------------------------------- */
+        /* SOLUCIÓN PUNTO 2: Estilos solo para el PDF (PRINT) */
+        /* ------------------------------------------------------------------- */
+        @media print {
+            .custom-checkbox {
+                /* Aseguramos que el recuadro sea fijo y grande para el PDF */
+                width: 25px; 
+                height: 25px;
+                border: 3px solid #1f2937 !important; /* Borde más grueso y oscuro */
+                border-radius: 4px;
+                background-color: white !important; /* Fuerza fondo blanco para impresión */
+            }
+
+            .custom-checkbox.checked {
+                /* En impresión, el fondo ya no es azul, sino que solo se muestra el tilde */
+                background-color: white !important; 
+                border-color: #1f2937 !important;
+            }
+            
+            .custom-checkbox.checked .checkmark {
+                /* La marca de verificación para el PDF */
+                display: block !important;
+                color: #1f2937 !important; /* Tilde en color negro o muy oscuro */
+                font-size: 20px; /* Tilde GRANDE para que se vea claro */
+                font-weight: 900; /* Super grueso */
+                /* Usamos el símbolo Unicode de checkmark (✓) para la impresión */
+                content: "\2713"; 
+            }
+
+            /* Hacemos que los inputs deshabilitados se vean como texto plano y no como inputs grises */
+            input:disabled {
+                background-color: transparent !important;
+                border-color: transparent !important;
+                box-shadow: none !important;
+                padding-left: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body class="p-4 md:p-8">
 
-<div id="form-container" class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 border border-gray-200">
+    <!-- Contenedor principal del formulario -->
+    <div id="form-container" class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 border border-gray-200">
 
-  <header class="mb-8 text-center">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">CONSENTIMIENTO INFORMADO</h1>
-    <p class="mt-4 text-gray-600 leading-relaxed">
-      El presente documento tiene como objetivo dejar constancia del consentimiento otorgado de manera libre e informada por el paciente para la realización de tratamientos o terapias según se describa a continuación. 
-    </p>
-  </header>
+        <!-- Título y descripción -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">CONSENTIMIENTO INFORMADO</h1>
+            <p class="mt-4 text-gray-600 leading-relaxed">
+                El Consentimiento Informado es la declaración de voluntad efectuada por el paciente, emitida luego de recibir información clara, precisa y adecuada inherente a procedimientos y tratamientos propuestos, con respecto a objetivos y beneficios. Su firma en el presente documento es la constancia de que entendió todo lo explicado y da conformidad acerca del mismo.
+            </p>
+        </header>
 
-  <form id="consentimientoForm" class="space-y-8">
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Datos del paciente</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div>
-          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y apellido</label>
-          <input type="text" id="nombre" name="nombre" required class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <!-- Formulario en sí -->
+        <form id="consentimientoForm" class="space-y-8">
+
+            <!-- Sección 1: Datos personales -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Nombre, apellido, DNI y Datos del Consentimiento</h2>
+                <div class="space-y-4">
+                    <!-- Campo Nombre y apellido -->
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre y apellido</label>
+                        <input type="text" id="nombre" name="nombre" required
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <!-- Campo DNI -->
+                    <div>
+                        <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
+                        <input type="text" id="dni" name="dni" required
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <!-- Campo Lugar -->
+                    <div>
+                        <label for="lugar" class="block text-sm font-medium text-gray-700">Lugar</label>
+                        <input type="text" id="lugar" name="lugar" required
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <!-- Campo Fecha -->
+                    <div>
+                        <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección 2: Información general -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">a) INFORMACIÓN GENERAL</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    El Ayurveda es un sistema milenario de medicina y estilo de vida, originario de la India hace más de 5.000 años. La palabra "Ayurveda" se traduce como "La ciencia de la vida", y su enfoque es profundamente holístico: Busca la armonía entre el cuerpo, mente y espíritu, reconociendo la conexión intrínseca con la naturaleza.
+                </p>
+                <p class="mt-4 text-gray-600 leading-relaxed">
+                    En el ámbito occidental, el Ayurveda es reconocido como un valioso sistema de medicina complementaria e integrativa. Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
+                </p>
+            </section>
+            
+            <!-- Sección 3: Objetivos del Tratamiento -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">b) OBJETIVOS DEL TRATAMIENTO</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.
+                </p>
+            </section>
+
+            <!-- Sección 4: A tener en cuenta -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">c) A TENER EN CUENTA</h2>
+                <ul class="list-disc list-inside space-y-3 text-gray-700">
+                    <li>Respetar el tiempo de uso: Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.</li>
+                    <li>No exceder la dosis: La cantidad recomendada es la efectiva y segura.</li>
+                    <li>Escuchar su cuerpo: Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
+                </ul>
+            </section>
+
+            <!-- Sección 5: AL DAR MI CONSENTIMIENTO -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">d) AL DAR MI CONSENTIMIENTO</h2>
+                <ul class="list-disc list-inside space-y-3 text-gray-700">
+                    <li>Entiendo mi estado de salud y que el tratamiento supone beneficios esperados para restablecer el equilibrio natural del cuerpo y mejorar mi estilo de vida. Se me explicó acabadamente acerca de los métodos y/o tratamientos.</li>
+                    <li>Me comprometo a brindar información veraz cuando sea solicitada y a cumplir con las indicaciones que me sean indicadas y también a informar aquellas que no he de cumplir.</li>
+                    <li>Entiendo que el tratamiento es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional.</li>
+                    <li>Asumo que en caso de experimentar cualquier reacción adversa, deberé suspender de inmediato la terapia. El terapeuta no asumirá responsabilidad alguna por el uso inapropiado o indebido del tratamiento ofrecido.</li>
+                    <li>Confirmo que se me informó en qué consiste el tratamiento, cómo se hace, sus beneficios y eventuales reacciones. He tenido oportunidad de aclarar mis dudas, y me han sido respondidas todas mis preguntas satisfactoriamente. Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.</li>
+                </ul>
+            </section>
+
+            <!-- Sección 6: MUY IMPORTANTE -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">e) MUY IMPORTANTE</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    Este tratamiento es voluntario y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida. Si usted tuviera cualquier duda sobre el mismo, los riesgos o los resultados, no dude en preguntar las veces que considere necesario. Le explicamos todo lo que usted quiera saber. Si decidiera no realizar el tratamiento, o suspenderlo, puede hacerlo cuando lo desee y con total libertad.
+                </p>
+            </section>
+            
+            <!-- Sección final con la casilla de verificación simulada -->
+            <section class="border-b pb-8 border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Doy mi consentimiento para el tratamiento</h2>
+                <div class="flex items-center">
+                    <div id="consentimientoCheckbox" class="custom-checkbox">
+                        <!-- El checkmark ahora usa un caracter Unicode que se puede estilizar en CSS de impresión -->
+                        <span class="checkmark">&#10003;</span>
+                    </div>
+                    <!-- CAMPO OCULTO (Necesario para que Weasyprint lo "vea" y sepa si el checkbox estaba marcado) -->
+                    <input type="hidden" id="consentimiento_estado" name="consentimiento_estado" value="No">
+                </div>
+            </section>
+            
+            <!-- Botón de envío -->
+            <div class="flex justify-end">
+                <button type="submit" id="submit-button"
+                        class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out">
+                    Enviar
+                </button>
+            </div>
+        </form>
+
+        <!-- Contenedor para mostrar mensajes (ej. éxito, error) -->
+        <div id="message-container" class="mt-8 hidden">
+            <div id="message-box" class="p-4 rounded-md shadow-sm"></div>
         </div>
-        <div>
-          <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
-          <input type="text" id="dni" name="dni" required class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-        </div>
-        <div>
-          <label for="lugar" class="block text-sm font-medium text-gray-700">Lugar</label>
-          <input type="text" id="lugar" name="lugar" required class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-        </div>
-        <div>
-          <label for="fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
-          <input type="date" id="fecha" name="fecha" required class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-        </div>
-        <div>
-          <label for="hora" class="block text-sm font-medium text-gray-700">Hora</label>
-          <input type="time" id="hora" name="hora" required class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-        </div>
-      </div>
-    </section>
 
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">a) Información general</h2>
-      <p class="text-gray-600 leading-relaxed">
-        El Ayurveda es un sistema ancestral de medicina y estilo de vida originario de la India, con más de cinco mil años de historia. Su nombre significa “ciencia de la vida”, y su propósito es mantener el equilibrio entre cuerpo, mente y espíritu, reconociendo la profunda conexión del ser humano con la naturaleza.
-      </p>
-      <p class="mt-4 text-gray-600 leading-relaxed">
-        En Occidente se reconoce como una medicina complementaria e integrativa, es decir, que puede acompañar y coexistir con los tratamientos médicos convencionales. No reemplaza la medicina alopática ni garantiza curaciones, sino que promueve hábitos saludables que ayudan a prevenir enfermedades y mejorar el bienestar general.
-      </p>
-    </section>
-
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">b) Objetivos del tratamiento</h2>
-      <p class="text-gray-600 leading-relaxed">
-        A través de la alimentación, el uso de hierbas, rutinas saludables, meditación y técnicas de respiración (pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo, fomentar la vitalidad y mejorar la calidad de vida.
-      </p>
-    </section>
-
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">c) A tener en cuenta</h2>
-      <ul class="list-disc list-inside space-y-3 text-gray-700">
-        <li>Respetar el tiempo de uso indicado de las plantas o preparados. Su uso prolongado sin supervisión puede alterar los efectos.</li>
-        <li>No exceder la dosis recomendada.</li>
-        <li>Escuchar su cuerpo: ante cualquier molestia o reacción, suspender el uso y comunicarlo al terapeuta.</li>
-      </ul>
-    </section>
-
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">d) Al dar mi consentimiento</h2>
-      <ul class="list-disc list-inside space-y-3 text-gray-700">
-        <li>Declaro haber comprendido la información recibida sobre los métodos y tratamientos propuestos.</li>
-        <li>Asumo el compromiso de seguir las indicaciones dadas e informar cualquier cambio o incumplimiento.</li>
-        <li>Entiendo que este tratamiento tiene carácter complementario y no sustituye la atención médica profesional.</li>
-        <li>Me comprometo a suspender el tratamiento ante cualquier efecto adverso y entiendo que el terapeuta no se responsabiliza por un uso inapropiado.</li>
-        <li>Confirmo que se me explicaron los beneficios, riesgos y posibles reacciones, y que todas mis dudas fueron aclaradas satisfactoriamente.</li>
-      </ul>
-    </section>
-
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">e) Muy importante</h2>
-      <p class="text-gray-600 leading-relaxed">
-        Este tratamiento es totalmente voluntario. Usted tiene derecho a decidir libremente su continuidad, solicitar información adicional o suspenderlo en cualquier momento. No dude en consultar cualquier inquietud o duda relacionada con los procedimientos, beneficios o posibles riesgos.
-      </p>
-    </section>
-
-    <section class="border-b pb-8 border-gray-200">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-4">Confirmación de consentimiento</h2>
-      <div class="flex items-center gap-3">
-        <div id="consentimientoCheckbox" class="custom-checkbox">
-          <span class="checkmark">✓</span>
-        </div>
-        <input type="hidden" id="consentimiento_estado" name="consentimiento_estado" value="No">
-        <span class="text-gray-700">Doy mi consentimiento para realizar el tratamiento</span>
-      </div>
-    </section>
-
-    <div class="flex justify-end">
-      <button type="submit" id="submit-button"
-        class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
-        Enviar
-      </button>
     </div>
-  </form>
 
-  <div id="message-container" class="mt-8 hidden">
-    <div id="message-box" class="p-4 rounded-md shadow-sm"></div>
-  </div>
-</div>
+    <!-- Script para manejar la lógica del formulario -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('consentimientoForm');
+            const submitButton = document.getElementById('submit-button');
+            const messageContainer = document.getElementById('message-container');
+            const messageBox = document.getElementById('message-box');
+            const customCheckbox = document.getElementById('consentimientoCheckbox');
+            const consentimientoEstadoInput = document.getElementById('consentimiento_estado'); 
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('consentimientoForm');
-  const submitButton = document.getElementById('submit-button');
-  const messageContainer = document.getElementById('message-container');
-  const messageBox = document.getElementById('message-box');
-  const customCheckbox = document.getElementById('consentimientoCheckbox');
-  const consentimientoEstadoInput = document.getElementById('consentimiento_estado');
-  let isChecked = false;
+            let isChecked = false;
 
-  customCheckbox.addEventListener('click', () => {
-    isChecked = !isChecked;
-    if (isChecked) {
-      customCheckbox.classList.add('checked');
-      consentimientoEstadoInput.value = 'Sí';
-    } else {
-      customCheckbox.classList.remove('checked');
-      consentimientoEstadoInput.value = 'No';
-    }
-  });
+            // Maneja el clic en la casilla de verificación simulada
+            customCheckbox.addEventListener('click', () => {
+                isChecked = !isChecked;
+                if (isChecked) {
+                    customCheckbox.classList.add('checked');
+                    consentimientoEstadoInput.value = 'Sí'; 
+                } else {
+                    customCheckbox.classList.remove('checked');
+                    consentimientoEstadoInput.value = 'No'; 
+                }
+            });
 
-  form.addEventListener('submit', async function(event) {
-    event.preventDefault();
-    if (!isChecked) {
-      messageBox.innerHTML = '<p class="text-red-800 font-medium">Por favor, marca la casilla de consentimiento.</p>';
-      messageBox.className = 'p-4 rounded-md bg-red-100';
-      messageContainer.classList.remove('hidden');
-      return;
-    }
-    messageBox.innerHTML = '<p class="text-blue-800 font-medium">Enviando formulario...</p>';
-    messageBox.className = 'p-4 rounded-md bg-blue-100';
-    messageContainer.classList.remove('hidden');
-    submitButton.disabled = true;
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault(); 
+                
+                // Validación para la casilla de verificación
+                if (!isChecked) {
+                    messageBox.innerHTML = '<p class="text-red-800 font-medium">Por favor, marca la casilla de consentimiento para continuar.</p>';
+                    messageBox.classList.remove('bg-blue-100', 'bg-green-100');
+                    messageBox.classList.add('bg-red-100');
+                    messageContainer.classList.remove('hidden');
+                    return;
+                }
 
-    const formInputs = document.querySelectorAll('#consentimientoForm input');
-    formInputs.forEach(input => {
-      input.setAttribute('value', input.value);
-      input.setAttribute('disabled', 'true');
-    });
-    if (isChecked) customCheckbox.classList.add('checked');
-    submitButton.style.display = 'none';
-    messageContainer.style.display = 'none';
-    const formContainer = document.getElementById('form-container');
-    const formHtml = formContainer.outerHTML;
-    const dniValue = document.getElementById('dni').value;
-    const dniFilenamePart = dniValue.replace(/[^a-zA-Z0-9]/g, '').trim();
-    const filename = `Consentimiento_DNI_${dniFilenamePart}.pdf`;
+                // Muestra un mensaje de carga
+                messageBox.innerHTML = '<p class="text-blue-800 font-medium">Enviando formulario...</p>';
+                messageBox.classList.remove('bg-green-100', 'bg-red-100');
+                messageBox.classList.add('bg-blue-100');
+                messageContainer.classList.remove('hidden');
+                submitButton.disabled = true;
 
-    const formData = {
-      nombre: document.getElementById('nombre').value,
-      dni: dniValue,
-      lugar: document.getElementById('lugar').value,
-      fecha: document.getElementById('fecha').value,
-      hora: document.getElementById('hora').value,
-      consentimiento: consentimientoEstadoInput.value,
-      form_html: formHtml,
-      pdf_filename: filename
-    };
+                const flaskUrl = 'https://imuser.ddns.net/submit-form';
+                
+                // --- PREPARACIÓN DEL HTML PARA EL PDF ---
+                
+                // 1. Deshabilitar inputs para que se vean como texto fijo en el PDF.
+                const formInputs = document.querySelectorAll('#consentimientoForm input');
+                formInputs.forEach(input => {
+                    input.setAttribute('value', input.value); 
+                    input.setAttribute('disabled', 'true');
+                });
+                
+                // 2. Aplicar la clase 'checked' si el consentimiento fue dado
+                if (isChecked) {
+                    customCheckbox.classList.add('checked');
+                }
+                
+                // 3. Oculta elementos que no queremos en el PDF (botón, mensajes)
+                submitButton.style.display = 'none';
+                messageContainer.style.display = 'none';
 
-    try {
-      const response = await fetch('https://imuser.ddns.net/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        messageBox.innerHTML = '<p class="text-green-800 font-medium">¡Gracias! El formulario fue enviado correctamente.</p>';
-        messageBox.className = 'p-4 rounded-md bg-green-100';
-        form.reset();
-        isChecked = false;
-        customCheckbox.classList.remove('checked');
-        consentimientoEstadoInput.value = 'No';
-      } else {
-        messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${response.status}</p>`;
-        messageBox.className = 'p-4 rounded-md bg-red-100';
-      }
-    } catch (error) {
-      messageBox.innerHTML = `<p class="text-red-800 font-medium">Error de conexión. Verifica el servidor.</p>`;
-      messageBox.className = 'p-4 rounded-md bg-red-100';
-    } finally {
-      submitButton.disabled = false;
-      submitButton.style.display = 'block';
-      messageContainer.style.display = 'block';
-      formInputs.forEach(input => input.removeAttribute('disabled'));
-    }
-  });
-});
-</script>
+                // 4. Obtiene el HTML completo del contenedor (incluyendo los valores y el estado de la casilla)
+                const formContainer = document.getElementById('form-container');
+                const formHtml = formContainer.outerHTML;
+
+                // --- LÓGICA: CREAR NOMBRE DEL PDF BASADO EN EL DNI ---
+                const dniValue = document.getElementById('dni').value;
+                // Sanitizamos y creamos el nombre de archivo. Usaremos solo números y letras.
+                const dniFilenamePart = dniValue.replace(/[^a-zA-Z0-9]/g, '').trim();
+                const filename = `Consentimiento_DNI_${dniFilenamePart}.pdf`;
+                // -----------------------------------------------------------
+
+                // 5. Prepara los datos a enviar
+                const formData = {
+                    nombre: document.getElementById('nombre').value,
+                    dni: dniValue,
+                    lugar: document.getElementById('lugar').value,
+                    fecha: document.getElementById('fecha').value,
+                    consentimiento: consentimientoEstadoInput.value, 
+                    form_html: formHtml,
+                    // Enviamos el nombre de archivo explícito para que el backend lo use
+                    pdf_filename: filename 
+                };
+                
+                // --- ENVÍO ---
+
+                try {
+                    const response = await fetch(flaskUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    if (response.ok) {
+                        messageBox.innerHTML = `<p class="text-green-800 font-medium">¡Gracias! El formulario ha sido enviado con éxito.</p>`;
+                        messageBox.classList.remove('bg-blue-100', 'bg-red-100');
+                        messageBox.classList.add('bg-green-100');
+                        
+                        // Limpieza
+                        form.reset(); 
+                        isChecked = false;
+                        customCheckbox.classList.remove('checked');
+                        consentimientoEstadoInput.value = 'No';
+                    } else {
+                        const errorData = await response.json(); 
+                        const errorMessage = errorData.message || `Error en el servidor: ${response.status} (${response.statusText})`;
+                        messageBox.innerHTML = `<p class="text-red-800 font-medium">Error en el servidor: ${errorMessage}</p>`;
+                        messageBox.classList.remove('bg-blue-100', 'bg-green-100');
+                        messageBox.classList.add('bg-red-100');
+                    }
+                } catch (error) {
+                    console.error('Error al enviar el formulario:', error);
+                    messageBox.innerHTML = `<p class="text-red-800 font-medium">Ocurrió un error de conexión. Revisa si el servidor está funcionando.</p>`;
+                    messageBox.classList.remove('bg-blue-100', 'bg-green-100');
+                    messageBox.classList.add('bg-red-100');
+                } finally {
+                    // --- RESTABLECER LA INTERFAZ DE USUARIO ---
+                    submitButton.disabled = false;
+                    submitButton.style.display = 'block';
+                    messageContainer.style.display = 'block';
+
+                    // Reactiva los inputs para un posible nuevo uso
+                    formInputs.forEach(input => {
+                        input.removeAttribute('disabled');
+                    });
+                    
+                    // Asegura que la clase de checkmark se restaure correctamente
+                    if (isChecked) {
+                       customCheckbox.classList.add('checked');
+                    } else {
+                       customCheckbox.classList.remove('checked');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
