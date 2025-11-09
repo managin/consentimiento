@@ -1,91 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CONSENTIMIENTO INFORMADO</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-body { font-family: 'Poppins', sans-serif; background:#f3f4f6; color:#111827; }
-.container { max-width:900px; margin:36px auto; background:#fff; padding:28px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.08); border:1px solid #e5e7eb; }
-h1 { font-size:1.9rem; color:#111827; margin-bottom:8px; }
-h2 { font-size:1.125rem; color:#374151; margin-bottom:8px; }
-p, li { color:#374151; line-height:1.5; font-size:0.98rem; }
-.custom-input { background:#f9fafb; border:1px solid #d1d5db; border-radius:6px; padding:.5rem .75rem; }
-.custom-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); border-color:#3b82f6; }
-.custom-checkbox { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border:2px solid #6b7280; background:#fff; border-radius:4px; cursor:pointer; }
-.custom-checkbox.checked { background:#3b82f6; border-color:#3b82f6; }
-.custom-checkbox .mark { color:white; font-weight:700; display:none; }
-.custom-checkbox.checked .mark { display:block; }
-.message { padding:12px; border-radius:8px; margin-top:14px; }
-@media print { .container{box-shadow:none;border:none;} input[disabled]{background:transparent;border-color:transparent} .custom-checkbox{width:22px;height:22px;border:2px solid #111827;background:white} .custom-checkbox .mark{color:#111827; display:block;} }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONSENTIMIENTO INFORMADO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body { font-family: 'Poppins', sans-serif; background:#f3f4f6; color:#111827; }
+        .container { max-width:900px; margin:28px auto; background:#fff; padding:24px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.06); border:1px solid #e5e7eb; }
+        .custom-input { background:#f9fafb; border:1px solid #d1d5db; border-radius:6px; padding:.6rem .75rem; }
+        .custom-input:focus{outline:none;box-shadow:0 0 0 3px rgba(59,130,246,0.12);border-color:#3b82f6}
+        .custom-checkbox{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid #6b7280;background:#fff;border-radius:4px;cursor:pointer}
+        .custom-checkbox.checked{background:#3b82f6;border-color:#3b82f6}
+        .custom-checkbox .mark{color:#fff;font-weight:700;display:none}
+        .custom-checkbox.checked .mark{display:block}
+        .message{padding:12px;border-radius:8px;margin-top:14px}
+        @media print{.container{box-shadow:none;border:none}input[disabled]{background:transparent;border-color:transparent} .custom-checkbox{width:22px;height:22px;border:2px solid #111827;background:white} .custom-checkbox .mark{color:#111827;display:block}}
+    </style>
 </head>
 <body>
 <div class="container" id="form-container">
-  <header style="text-align:center;">
-    <h1>CONSENTIMIENTO INFORMADO</h1>
-    <div style="height:8px;"></div>
-    <div style="width:60%; margin:0 auto; border-bottom:2px solid #111827;"></div>
-    <div style="height:12px;"></div>
+  <header style="text-align:center">
+    <h1 style="font-size:1.6rem;font-weight:700;margin-bottom:8px">CONSENTIMIENTO INFORMADO</h1>
+    <div style="width:60%;margin:0 auto;border-bottom:2px solid #111827;margin-bottom:12px"></div>
   </header>
 
   <form id="consentimientoForm">
-    <p>El Consentimiento Informado es la declaración libre y voluntaria efectuada por el consultante, emitida luego de recibir información clara, precisa y adecuada inherente a su consulta, y a los procedimientos o pautas propuestas, con respecto a objetivos y beneficios de Ayurveda. Su firma en el presente documento es la constancia de que comprendió todo lo explicado y presta conformidad a iniciar con el acompañamiento propuesto.</p>
 
-    <p style="text-align:center; font-weight:600; margin-top:12px;">Lucía Pizzorno<br><span style="font-style:italic;font-weight:400;">Profesional en Medicina Ayurveda (Vaidya B.A.M.S., Acharya - India)</span></p>
+    <!-- Texto introductorio (exacto) -->
+    <p style="white-space:pre-line">
+El Consentimiento Informado es la declaración libre y voluntaria
+efectuada por el consultante, emitida luego de recibir
+información clara, precisa y adecuada inherente a su consulta, y
+a los procedimientos o pautas propuestas, con respecto a
+objetivos y beneficios de Ayurveda. Su firma en el presente
+documento es la constancia de que comprendió todo lo explicado y
+presta conformidad a iniciar con el acompañamiento propuesto.
+    </p>
 
-    <!-- Editable fields -->
-    <div style="margin-top:16px;">
-      <label style="display:block; font-weight:600; margin-bottom:6px;">Nombre y Apellido del consultante:</label>
-      <input id="nombre" name="nombre" type="text" class="custom-input" placeholder="Ingrese nombre y apellido" required>
+    <p style="text-align:center;font-weight:600;margin-top:8px">Lucía Pizzorno</p>
+    <p style="text-align:center;font-style:italic;margin-bottom:10px">Profesional en Medicina Ayurveda (Vaidya B.A.M.S., Acharya - India)</p>
+
+    <!-- Campos editables: nombre y dni -->
+    <div style="margin-top:12px">
+      <label style="display:block;font-weight:600;margin-bottom:6px">Nombre y Apellido del consultante:</label>
+      <input id="nombre" name="nombre" type="text" class="custom-input" placeholder="Ingrese su nombre y apellido" required>
     </div>
 
-    <div style="margin-top:12px;">
-      <label style="display:block; font-weight:600; margin-bottom:6px;">DNI:</label>
-      <input id="dni" name="dni" type="text" class="custom-input" placeholder="Ingrese DNI" required>
+    <div style="margin-top:10px">
+      <label style="display:block;font-weight:600;margin-bottom:6px">DNI</label>
+      <input id="dni" name="dni" type="text" class="custom-input" placeholder="Ingrese su DNI" required>
     </div>
 
-    <!-- Full text sections (fixed) -->
-    <section style="margin-top:18px;">
-      <h2>a) INFORMACIÓN GENERAL:</h2>
-      <p>La Medicina Ayurveda es una práctica de bienestar complementaria e integrativa enfocada en el equilibrio de la constitución (Doshas), la mejora del estilo de vida (Dinacharya) y la promoción de la salud.
-      Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. En consecuencia, no ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica.
-      Las recomendaciones dietéticas, de estilo de vida, y el uso de plantas o terapias corporales se basan en la tradición ayurvédica y en el estudio de la constitución individual (Prakriti y Vikruti).
-      La Profesional en Medicina Ayurveda es egresada de la India con el título de Médica Ayurveda (Vaidya - B.A.M.S.), el cual aún no se encuentra revalidado como título alopático en la República Argentina, su función se limita a la guía de bienestar y estilo de vida, razón por la cual se considera una terapia complementaria.
-      La Profesional en Medicina Ayurveda no realiza actos de la medicina alopática, tales como el diagnóstico, prescripción de fármacos o realización de cirugías.</p>
+    <!-- Seccion a) INFORMACIÓN GENERAL (texto literal) -->
+    <section style="margin-top:14px">
+      <h2 style="font-weight:700">a) INFORMACIÓN GENERAL:</h2>
+      <p style="white-space:pre-line">La Medicina Ayurveda es una práctica de bienestar complementaria
+e integrativa enfocada en el equilibrio de la constitución
+(Doshas), la mejora del estilo de vida (Dinacharya) y la
+promoción de la salud.
+Esto significa que puede coexistir y trabajar en sinergia con la
+medicina alopática (occidental), sin la intención de
+reemplazarla. En consecuencia, no ofrece garantía de curación
+ni constituye un tratamiento concluyente para ninguna condición
+médica específica.
+Las recomendaciones dietéticas, de estilo de vida, y el uso de
+plantas o terapias corporales se basan en la tradición
+ayurvédica y en el estudio de la constitución individual
+(Prakriti y Vikruti).
+La Profesional en Medicina Ayurveda es egresada de la India con
+el título de Médica Ayurveda (Vaidya - B.A.M.S.), el cual aún no
+se encuentra revalidado como título alopático en la República
+Argentina, su función se limita a la guía de bienestar y estilo
+de vida, razón por la cual se considera una terapia
+complementaria.
+La Profesional en Medicina Ayurveda no realiza actos de la
+medicina alopática, tales como el diagnóstico, prescripción de
+fármacos o realización de cirugías.</p>
     </section>
 
-    <section style="margin-top:12px;">
-      <h2>b) OBJETIVOS DE LA GUÍA AYURVÉDICA:</h2>
-      <p>A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.</p>
+    <!-- Seccion b) -->
+    <section style="margin-top:12px">
+      <h2 style="font-weight:700">b) OBJETIVOS DE LA GUÍA AYURVÉDICA:</h2>
+      <p style="white-space:pre-line">A través de la alimentación, el uso de hierbas medicinales,
+ejercicio, meditación y técnicas de respiración (kriyas y
+pranayamas), el Ayurveda busca restablecer el equilibrio natural
+del cuerpo y fomentar un estilo de vida que prevenga
+enfermedades y promueva la longevidad</p>
     </section>
 
-    <section style="margin-top:12px;">
-      <h2>c) A TENER EN CUENTA:</h2>
-      <p>Si bien las respuestas inusuales o molestias son verdaderamente muy poco frecuentes, y la vasta mayoría de las personas se siente muy bien con estas terapias, para garantizar que el uso de las plantas medicinales sea siempre beneficioso y seguro, recuerde las siguientes reglas fundamentales:</p>
-      <ul>
-        <li>Respetar el tiempo de uso: Tomar las plantas sólo por el período indicado. Su uso prolongado sin supervisión puede alterar sus efectos.</li>
-        <li>No exceder la dosis aconsejada: La cantidad recomendada es la efectiva y segura.</li>
-        <li>Escuchar su cuerpo: Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
-      </ul>
+    <!-- Seccion c) -->
+    <section style="margin-top:12px">
+      <h2 style="font-weight:700">c) A TENER EN CUENTA:</h2>
+      <p style="white-space:pre-line">Si bien las respuestas inusuales o molestias son verdaderamente
+muy poco frecuentes, y la vasta mayoría de las personas se
+siente muy bien con estas terapias, para garantizar que el uso
+de las plantas medicinales sea siempre beneficioso y seguro,
+recuerde las siguientes reglas fundamentales:
+Respetar el tiempo de uso: Tomar las plantas sólo por el período
+indicado. Su uso prolongado sin supervisión puede alterar sus
+efectos.
+No exceder la dosis aconsejada: La cantidad recomendada es la
+efectiva y segura.
+Escuchar su cuerpo: Si siente alguna molestia o reacción
+inusual, suspender el uso inmediatamente.</p>
     </section>
 
-    <section style="margin-top:12px;">
-      <h2>d) AL DAR MI CONSENTIMIENTO:</h2>
-      <ol>
-        <li>Entiendo mi estado de salud y que la implementación de la Guía Ayurveda supone beneficios esperados para restablecer el equilibrio natural de mi cuerpo y mejorar mi estilo de vida a efectos de prevenir enfermedades y promover la longevidad. Se me explicó acabadamente acerca de los métodos y/o pautas sugeridas.</li>
-        <li>He brindado información veraz respecto de mi estado de salud actual y mi condición médica, diagnósticos previos (incluidos los de enfermedades crónicas, autoinmunes o cáncer), medicación alopática, suplementos y tratamientos paralelos que esté recibiendo antes y durante esta consulta. Me comprometo a brindar esta información toda vez que me sea solicitada, y a cumplir con las pautas que me sean indicadas y también a informar aquellas que no he de cumplir.</li>
-        <li>Entiendo que la Guía Ayurveda es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional. Entiendo que resulta imprescindible seguir las indicaciones de mi médico de cabecera para el mantenimiento de mi bienestar integral, y que no suspenderé, abandonaré o alteraré ninguna medicación o tratamiento médico sin la indicación expresa de mi médico tratante. Asimismo informaré si mi médico me indica una modificación en mi tratamiento alopático que pueda interactuar con las recomendaciones ayurvédicas.</li>
-        <li>Asumo que en caso de experimentar cualquier reacción adversa, suspenderé de inmediato la aplicación de la Guía Ayurveda, y lo informaré a la mayor brevedad posible. La Profesional en Medicina Ayurveda no asumirá responsabilidad alguna por el uso inapropiado o indebido de las sugerencias ofrecidas.</li>
-        <li>Autorizo a la Profesional en Medicina Ayurveda a almacenar la información del historial de salud únicamente para fines de seguimiento terapéutico interno, y el Terapeuta se compromete a mantener la estricta confidencialidad de la información compartida por mí como consultante.</li>
-      </ol>
+    <!-- Seccion d) -->
+    <section style="margin-top:12px">
+      <h2 style="font-weight:700">d) AL DAR MI CONSENTIMIENTO:</h2>
+      <p style="white-space:pre-line">1. Entiendo mi estado de salud y que la implementación de la
+Guía Ayurveda supone beneficios esperados para restablecer el
+equilibrio natural de mi cuerpo y mejorar mi estilo de vida a
+efectos de prevenir enfermedades y promover la longevidad. Se
+me explicó acabadamente acerca de los métodos y/o pautas
+sugeridas.
+2. He brindado información veraz respecto de mi estado de
+salud actual y mi condición médica, diagnósticos previos
+(incluidos los de enfermedades crónicas, autoinmunes o cáncer),
+medicación alopática, suplementos y tratamientos paralelos que
+esté recibiendo antes y durante esta consulta. Me comprometo a
+brindar esta información toda vez que me sea solicitada, y a
+cumplir con las pautas que me sean indicadas y también a
+informar aquellas que no he de cumplir.
+3. Entiendo que la Guía Ayurveda es de carácter
+complementario y no sustituye de modo alguno la atención médica
+proporcionada por la medicina convencional. Entiendo que
+resulta imprescindible seguir las indicaciones de mi médico de
+cabecera para el mantenimiento de mi bienestar integral, y que
+no suspenderé, abandonaré o alteraré ninguna medicación o
+tratamiento médico sin la indicación expresa de mi médico
+tratante. Asimismo informaré si mi médico me indica una
+modificación en mi tratamiento alopático que pueda interactuar
+con las recomendaciones ayurvédicas.
+
+4. Asumo que en caso de experimentar cualquier reacción
+adversa, suspenderé de inmediato la aplicación de la Guía
+Ayurveda, y lo informaré a la mayor brevedad posible. La
+Profesional en Medicina Ayurveda no asumirá responsabilidad
+alguna por el uso inapropiado o indebido de las sugerencias
+ofrecidas.</p>
     </section>
 
-    <section style="margin-top:12px;">
-      <h2>6. MUY IMPORTANTE:</h2>
-      <p>La utilización de la Guía Ayurveda, es libre y voluntaria, y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida por parte del profesional. Si usted tuviera cualquier duda sobre el mismo, los riesgos o los resultados, no dude en preguntar las veces que considere necesario. Le explicaremos todo lo que usted desee saber. Si decidiera no aplicar la Guía, o suspender su utilización, puede hacerlo cuando lo desee y con total libertad, debiendo informarnos de tal decisión. Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.</p>
+    <!-- Seccion 6 -->
+    <section style="margin-top:12px">
+      <h2 style="font-weight:700">6. MUY IMPORTANTE:</h2>
+      <p style="white-space:pre-line">La utilización de la Guía Ayurveda, es libre y voluntaria, y
+usted tiene derecho a elegir lo que considere mejor para sus
+intereses, teniendo en cuenta la información recibida por parte
+del profesional. Si usted tuviera cualquier duda sobre el
+mismo, los riesgos o los resultados, no dude en preguntar las
+veces que considere necesario. Le explicaremos todo lo que
+usted desee saber. Si decidiera no aplicar la Guía, o suspender
+su utilización, puede hacerlo cuando lo desee y con total
+libertad, debiendo informarnos de tal decisión.
+Asumo el compromiso de respetar la guía recibida y aplicarla sin
+hacer mal uso de ella.</p>
     </section>
 
     <!-- Consent checkbox (interactive) -->
@@ -96,7 +167,7 @@ p, li { color:#374151; line-height:1.5; font-size:0.98rem; }
       <label for="consentBox" style="cursor:pointer; font-weight:600;">Doy mi consentimiento para recibir el asesoramiento y la guía.</label>
     </div>
 
-    <!-- place inputs -->
+    <!-- inputs Lugar/Fecha/Hora -->
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:18px;">
       <div>
         <label style="display:block; font-weight:600; margin-bottom:6px;">Lugar:</label>
