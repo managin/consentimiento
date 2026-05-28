@@ -1,104 +1,160 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CONSENTIMIENTO INFORMADO</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
- @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
- body {font-family:'Poppins',sans-serif;background:#f3f4f6;color:#111827;}
- .container{max-width:900px;margin:2rem auto;background:#fff;padding:3rem;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.06);border:1px solid #e5e7eb;text-align:justify;}
- .container h2{margin-top:1rem;font-weight:700;}
- .container p{margin-top:.5rem;line-height:1.6;}
- label{font-weight:600;display:block;margin-top:1rem;}
- .custom-input{background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:.6rem .75rem;width:100%;}
- .custom-checkbox{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:2px solid #6b7280;background:#fff;border-radius:4px;cursor:pointer;margin-right:.5rem;}
- .custom-checkbox.checked{background:#3b82f6;border-color:#3b82f6;}
- .custom-checkbox .mark{color:#fff;font-weight:700;display:none;}
- .custom-checkbox.checked .mark{display:block;}
- .message{padding:12px;border-radius:8px;margin-top:14px;text-align:center;}
- @media print{.container{box-shadow:none;border:none;}}
-</style>
-</head>
-<body>
-<div class="container" id="form-container">
-<h1 style="text-align:center;font-size:1.8rem;font-weight:700;">CONSENTIMIENTO INFORMADO</h1>
-<hr style="border:1px solid #111827;width:60%;margin:0.5rem auto 1.5rem auto;">
-<form id="consentimientoForm">
-<p>El Consentimiento Informado es la declaración libre y voluntaria efectuada por el consultante, emitida luego de recibir información clara, precisa y adecuada inherente a su consulta, y a los procedimientos o pautas propuestas, con respecto a objetivos y beneficios de Ayurveda. Su firma en el presente documento es la constancia de que comprendió todo lo explicado y presta conformidad a iniciar con el acompañamiento propuesto.</p>
-<p style="text-align:center;font-weight:600;margin-top:1rem;">Lucía Pizzorno</p>
-<p style="text-align:center;font-style:italic;">Profesional en Medicina Ayurveda (Vaidya B.A.M.S., Acharya - India)</p>
-<label>Nombre y Apellido del consultante:</label>
-<input id="nombre" name="nombre" type="text" class="custom-input" placeholder="Ingrese su nombre y apellido" required>
-<label>DNI:</label>
-<input id="dni" name="dni" type="text" class="custom-input" placeholder="Ingrese su DNI" required>
-<h2>a) INFORMACIÓN GENERAL:</h2>
-<p>La Medicina Ayurveda es una práctica de bienestar complementaria e integrativa enfocada en el equilibrio de la constitución (Doshas), la mejora del estilo de vida (Dinacharya) y la promoción de la salud. Esto significa que puede coexistir y trabajar en sinergia con la medicina alopática (occidental), sin la intención de reemplazarla. No ofrece garantía de curación ni constituye un tratamiento concluyente para ninguna condición médica específica. Las recomendaciones dietéticas, de estilo de vida, y el uso de plantas o terapias corporales se basan en la tradición ayurvédica y en el estudio de la constitución individual (Prakriti y Vikruti). La Profesional en Medicina Ayurveda es egresada de la India con el título de Médica Ayurveda (Vaidya - B.A.M.S.).</p>
-<h2>b) OBJETIVOS DE LA GUÍA AYURVÉDICA:</h2>
-<p>A través de la alimentación, el uso de hierbas medicinales, ejercicio, meditación y técnicas de respiración (kriyas y pranayamas), el Ayurveda busca restablecer el equilibrio natural del cuerpo y fomentar un estilo de vida que prevenga enfermedades y promueva la longevidad.</p>
-<h2>c) A TENER EN CUENTA:</h2>
-<p>Para garantizar que el uso de las plantas medicinales sea siempre beneficioso y seguro, recuerde las siguientes reglas fundamentales:</p>
-<ul style="margin-left:1rem;list-style:disc;">
-<li>Respetar el tiempo de uso: Tomar las plantas sólo por el período indicado.</li>
-<li>No exceder la dosis aconsejada: La cantidad recomendada es la efectiva y segura.</li>
-<li>Escuchar su cuerpo: Si siente alguna molestia o reacción inusual, suspender el uso inmediatamente.</li>
-</ul>
-<h2>d) AL DAR MI CONSENTIMIENTO:</h2>
-<p>1. Entiendo mi estado de salud y que la implementación de la Guía Ayurveda supone beneficios esperados para restablecer el equilibrio natural de mi cuerpo y mejorar mi estilo de vida a efectos de prevenir enfermedades y promover la longevidad. Se me explicó acabadamente acerca de los métodos y/o pautas sugeridas.</p>
-<p>2. He brindado información veraz respecto de mi estado de salud actual y mi condición médica, diagnósticos previos (incluidos los de enfermedades crónicas, autoinmunes o cáncer), medicación alopática, suplementos y tratamientos paralelos que esté recibiendo antes y durante esta consulta.</p>
-<p>3. Entiendo que la Guía Ayurveda es de carácter complementario y no sustituye de modo alguno la atención médica proporcionada por la medicina convencional. Entiendo que resulta imprescindible seguir las indicaciones de mi médico de cabecera para el mantenimiento de mi bienestar integral, y que no suspenderé, abandonaré o alteraré ninguna medicación o tratamiento médico sin la indicación expresa de mi médico tratante. Asimismo informaré si mi médico me indica una modificación en mi tratamiento alopático que pueda interactuar con las recomendaciones ayurvédicas.</p>
-<p>4. Asumo que en caso de experimentar cualquier reacción adversa, suspenderé de inmediato la aplicación de la Guía Ayurveda, y lo informaré a la mayor brevedad posible. La Profesional en Medicina Ayurveda no asumirá responsabilidad alguna por el uso inapropiado o indebido de las sugerencias ofrecidas.</p>
-<h2>MUY IMPORTANTE:</h2>
-<p>La utilización de la Guía Ayurveda, es libre y voluntaria, y usted tiene derecho a elegir lo que considere mejor para sus intereses, teniendo en cuenta la información recibida por parte del profesional. Si decidiera no aplicar la Guía, o suspender su utilización, puede hacerlo cuando lo desee y con total libertad, debiendo informarnos de tal decisión.</p>
-<p>Asumo el compromiso de respetar la guía recibida y aplicarla sin hacer mal uso de ella.</p>
-<div style="margin-top:1.2rem;display:flex;align-items:center;">
- <div id="consentBox" class="custom-checkbox" role="checkbox" aria-checked="false" tabindex="0"><span class="mark">✓</span></div>
- <label for="consentBox" style="cursor:pointer;">Doy mi consentimiento para recibir el asesoramiento y la guía.</label>
-</div>
-<div style="margin-top:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
- <div><label>Lugar:</label><input id="lugar" name="lugar" type="text" class="custom-input" required></div>
- <div><label>Fecha:</label><input id="fecha" name="fecha" type="date" class="custom-input" required></div>
- <div><label>Hora:</label><input id="hora" name="hora" type="time" class="custom-input" required></div>
-</div>
-<p style="text-align:center;font-weight:600;margin-top:2rem;">FIRMA: __________________________________________</p>
-<div style="text-align:right;margin-top:2rem;">
- <button id="submitBtn" type="submit" style="background:#3b82f6;color:white;padding:10px 18px;border-radius:8px;border:none;cursor:pointer;">Enviar</button>
-</div>
-<div id="message" class="message" style="display:none;"></div>
-</form>
-</div>
 <script>
 (function(){
- const consentBox=document.getElementById('consentBox');
- let consentChecked=false;
- consentBox.addEventListener('click',()=>{consentChecked=!consentChecked;consentBox.classList.toggle('checked',consentChecked);});
- const form=document.getElementById('consentimientoForm');
- const submitBtn=document.getElementById('submitBtn');
- const messageBox=document.getElementById('message');
- const flaskUrl='https://imuser.ddns.net/submit-form';
- function showMessage(t,type='info'){messageBox.style.display='block';messageBox.style.background=type==='error'?'#fee2e2':(type==='success'?'#dcfce7':'#e0f2fe');messageBox.textContent=t;}
- form.addEventListener('submit',async(e)=>{
- e.preventDefault();
- if(!consentChecked){showMessage('Por favor marque la casilla de consentimiento antes de enviar.','error');return;}
- const nombre=document.getElementById('nombre').value.trim();
- const dni=document.getElementById('dni').value.trim();
- const lugar=document.getElementById('lugar').value.trim();
- const fecha=document.getElementById('fecha').value;
- const hora=document.getElementById('hora').value;
- if(!nombre||!dni||!lugar||!fecha||!hora){showMessage('Complete todos los campos obligatorios antes de enviar.','error');return;}
- const inputs=form.querySelectorAll('input');inputs.forEach(i=>{i.setAttribute('value',i.value||'');i.setAttribute('disabled','true');});
- if(consentChecked)consentBox.classList.add('checked');
- submitBtn.disabled=true;submitBtn.style.opacity='0.6';showMessage('Enviando formulario...');
- const formHtml=document.getElementById('form-container').outerHTML;
- const pdf_filename=`Consentimiento_DNI_${dni.replace(/[^a-zA-Z0-9]/g,'').trim()||'no_dni'}.pdf`;
- const payload={nombre,dni,lugar,fecha,hora,consentimiento:consentChecked?'Sí':'No',form_html:formHtml,pdf_filename};
- try{const resp=await fetch(flaskUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
- if(resp.ok){showMessage('Formulario enviado correctamente. Se generó y envió el PDF.','success');}else{showMessage(`Error en envío: ${resp.status}`,'error');}}
- catch(err){showMessage('Error de conexión: '+err.message,'error');}
- finally{inputs.forEach(i=>i.removeAttribute('disabled'));submitBtn.disabled=false;submitBtn.style.opacity='1';}
+
+ const consentBox = document.getElementById('consentBox');
+ let consentChecked = false;
+
+ consentBox.addEventListener('click', () => {
+     consentChecked = !consentChecked;
+     consentBox.classList.toggle('checked', consentChecked);
  });
+
+ const form = document.getElementById('consentimientoForm');
+ const submitBtn = document.getElementById('submitBtn');
+ const messageBox = document.getElementById('message');
+
+ const flaskUrl = 'https://imuser.ddns.net/submit-form';
+
+ function showMessage(text, type='info') {
+
+     messageBox.style.display='block';
+
+     if(type === 'error'){
+         messageBox.style.background = '#fee2e2';
+     } else if(type === 'success'){
+         messageBox.style.background = '#dcfce7';
+     } else {
+         messageBox.style.background = '#e0f2fe';
+     }
+
+     messageBox.textContent = text;
+ }
+
+ form.addEventListener('submit', async (e) => {
+
+     e.preventDefault();
+
+     if(!consentChecked){
+         showMessage(
+             'Por favor marque la casilla de consentimiento antes de enviar.',
+             'error'
+         );
+         return;
+     }
+
+     const nombre = document.getElementById('nombre').value.trim();
+     const dni = document.getElementById('dni').value.trim();
+     const lugar = document.getElementById('lugar').value.trim();
+     const fecha = document.getElementById('fecha').value;
+     const hora = document.getElementById('hora').value;
+
+     if(!nombre || !dni || !lugar || !fecha || !hora){
+
+         showMessage(
+             'Complete todos los campos obligatorios antes de enviar.',
+             'error'
+         );
+
+         return;
+     }
+
+     const inputs = form.querySelectorAll('input');
+
+     inputs.forEach(i => {
+         i.setAttribute('value', i.value || '');
+         i.setAttribute('disabled', 'true');
+     });
+
+     if(consentChecked){
+         consentBox.classList.add('checked');
+     }
+
+     submitBtn.disabled = true;
+     submitBtn.style.opacity = '0.6';
+
+     showMessage('Enviando formulario...');
+
+     const formHtml =
+         document.getElementById('form-container').outerHTML;
+
+     const pdf_filename =
+         `Consentimiento_DNI_${
+             dni.replace(/[^a-zA-Z0-9]/g,'').trim()
+             || 'no_dni'
+         }.pdf`;
+
+     const payload = {
+         nombre,
+         dni,
+         lugar,
+         fecha,
+         hora,
+         consentimiento: consentChecked ? 'Sí' : 'No',
+         form_html: formHtml,
+         pdf_filename
+     };
+
+     try {
+
+         const resp = await fetch(flaskUrl, {
+
+             method: 'POST',
+
+             mode: 'cors',
+
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+
+             body: JSON.stringify(payload)
+
+         });
+
+         let result = '';
+
+         try{
+             result = await resp.text();
+         }catch(e){
+             result = 'sin respuesta';
+         }
+
+         if(resp.ok){
+
+             showMessage(
+                 'Formulario enviado correctamente.',
+                 'success'
+             );
+
+         } else {
+
+             showMessage(
+                 `Error ${resp.status}: ${result}`,
+                 'error'
+             );
+
+         }
+
+     } catch(err){
+
+         console.error(err);
+
+         showMessage(
+             'Error de conexión: ' + err.message,
+             'error'
+         );
+
+     } finally {
+
+         inputs.forEach(i=>{
+             i.removeAttribute('disabled');
+         });
+
+         submitBtn.disabled = false;
+         submitBtn.style.opacity = '1';
+
+     }
+
+ });
+
 })();
 </script>
-</body>
-</html>
